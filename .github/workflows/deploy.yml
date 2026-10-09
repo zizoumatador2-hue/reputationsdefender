@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: 20
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
       - name: Install dependencies
         run: npm install
 
@@ -35,45 +39,15 @@ jobs:
         run: |
           echo "::notice::Starting Cloudflare Pages deployment..."
 
-          # Verify credentials
-          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "::error::Missing Cloudflare credentials"
+          # Install Python requests
+          pip install requests --quiet
+
+          # Run deployment script
+          python3 scripts/deploy.py
+
+          if [ $? -eq 0 ]; then
+            echo "::notice::✅ Deployment successful"
+          else
+            echo "::error::Deployment failed"
             exit 1
           fi
-
-          echo "::notice::Project: $PROJECT"
-          echo "::notice::Building deployment manifest..."
-
-          # Create a temporary directory for upload
-          UPLOAD_DIR=$(mktemp -d)
-          cp -r dist/* "$UPLOAD_DIR/"
-
-          # Get list of files to upload
-          FILE_LIST=$(find "$UPLOAD_DIR" -type f -print0 | xargs -0 -I {} bash -c 'echo "{}"' | sort)
-
-          echo "::notice::Files to deploy: $(echo "$FILE_LIST" | wc -l)"
-
-          # Use wrangler to deploy
-          echo "::notice::Deploying with Wrangler..."
-          npx --yes wrangler@latest pages deploy "$UPLOAD_DIR" \
-            --project-name "$PROJECT" \
-            --branch main || {
-            echo "::error::Wrangler deployment failed"
-            exit 1
-          }
-
-          echo "::notice::✅ Deployment completed successfully"
-
-      - name: Verify deployment
-        continue-on-error: true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          # Clean token
-          TOKEN=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '\n\r')
-          ACCOUNT_ID=$(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | tr -d '\n\r')
-
-          echo "::notice::Verifying deployment..."
-          curl -s "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/$PROJECT" \
-            -H "Authorization: Bearer $TOKEN" | python3 -m json.tool || echo "Verification request failed (non-critical)"
