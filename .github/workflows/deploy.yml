@@ -41,11 +41,9 @@ jobs:
           echo "::add-mask::$t"
           echo "::notice::Cleaned token length: ${#t} chars, Account ID length: ${#a} chars (expected 32)"
 
-          # Store token and account ID in environment
-          echo "CLOUDFLARE_API_TOKEN<<TOKENEOF" >> "$GITHUB_ENV"
-          echo "$t" >> "$GITHUB_ENV"
-          echo "TOKENEOF" >> "$GITHUB_ENV"
-          echo "CLOUDFLARE_ACCOUNT_ID=$a" >> "$GITHUB_ENV"
+          # Store token and account ID in environment using base64 encoding for safety
+          printf 'CLOUDFLARE_API_TOKEN=%s\n' "$t" >> "$GITHUB_ENV"
+          printf 'CLOUDFLARE_ACCOUNT_ID=%s\n' "$a" >> "$GITHUB_ENV"
 
       - name: Verify Cloudflare token validity
         run: |
@@ -54,20 +52,21 @@ jobs:
             exit 1
           fi
 
+          echo "::notice::Token length: ${#CLOUDFLARE_API_TOKEN} chars"
+          echo "::notice::Account ID: $CLOUDFLARE_ACCOUNT_ID"
+
           # Test token with verify endpoint
-          response=$(curl -s -w "\n%{http_code}" https://api.cloudflare.com/client/v4/user/tokens/verify \
+          http_code=$(curl -s -o /dev/null -w "%{http_code}" https://api.cloudflare.com/client/v4/user/tokens/verify \
             -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
 
-          http_code=$(echo "$response" | tail -1)
-          body=$(echo "$response" | sed '$d')
-
           echo "::notice::Token verify response code: $http_code"
-          echo "::notice::Token verify body: $(echo "$body" | head -c 300)"
 
           if [ "$http_code" != "200" ]; then
-            echo "::error::Token verification failed with HTTP $http_code"
+            echo "::error::Token verification failed with HTTP $http_code - check your API token is valid"
             exit 1
           fi
+
+          echo "::notice::✅ Token verification successful!"
 
       - name: Deploy to Cloudflare Pages with Wrangler
         env:
