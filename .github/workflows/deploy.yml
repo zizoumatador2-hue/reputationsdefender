@@ -1,0 +1,68 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+env:
+  PROJECT: reputationsdefender
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build site
+        run: npm run build
+
+      - name: Create Pages project (first run only)
+        run: npx --yes wrangler@3 pages project create "$PROJECT" --production-branch=main || echo "Project already exists"
+
+      - name: Deploy to Cloudflare Pages
+        run: npx --yes wrangler@3 pages deploy dist --project-name="$PROJECT" --branch=main --commit-dirty=true
+
+      - name: Attach custom domains
+        continue-on-error: true
+        run: |
+          for d in reputationsdefender.com www.reputationsdefender.com; do
+            echo "== $d"
+            curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT/domains" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+              --data "{\"name\":\"$d\"}"
+            echo
+          done
+
+      - name: Point DNS at Pages (needs Zone DNS Edit on the token)
+        continue-on-error: true
+        run: |
+          ZONE=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=reputationsdefender.com" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -c 'import sys,json; r=json.load(sys.stdin).get("result") or []; print(r[0]["id"] if r else "")')
+          if [ -z "$ZONE" ]; then echo "Token cannot read the zone; skipping DNS"; exit 0; fi
+          for name in reputationsdefender.com www; do
+            curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE/dns_records" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+              --data "{\"type\":\"CNAME\",\"name\":\"$name\",\"content\":\"$PROJECT.pages.dev\",\"proxied\":true}"
+            echo
+          done
+
+      - name: Domain status
+        continue-on-error: true
+        run: |
+          curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT/domains" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            | python3 -c 'import sys,json; [print(d["name"], d.get("status"), (d.get("verification_data") or {}).get("status")) for d in json.load(sys.stdin).get("result") or []]'
