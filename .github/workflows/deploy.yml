@@ -30,11 +30,29 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Check Cloudflare token
+        run: |
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || echo "::error::Secret CLOUDFLARE_API_TOKEN is empty or missing"
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || echo "::error::Secret CLOUDFLARE_ACCOUNT_ID is empty or missing"
+          v=$(curl -s https://api.cloudflare.com/client/v4/user/tokens/verify -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "::notice::token verify: $(echo "$v" | tr -d '\n' | cut -c1-300)"
+          p=$(curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "::notice::pages list: $(echo "$p" | tr -d '\n' | cut -c1-300)"
+
       - name: Create Pages project (first run only)
-        run: npx --yes wrangler@3 pages project create "$PROJECT" --production-branch=main || echo "Project already exists"
+        run: |
+          out=$(npx --yes wrangler@3 pages project create "$PROJECT" --production-branch=main 2>&1) || true
+          echo "$out"
+          echo "::notice::create: $(echo "$out" | tail -8 | tr '\n' ' ' | cut -c1-400)"
 
       - name: Deploy to Cloudflare Pages
-        run: npx --yes wrangler@3 pages deploy dist --project-name="$PROJECT" --branch=main --commit-dirty=true
+        run: |
+          set +e
+          out=$(npx --yes wrangler@3 pages deploy dist --project-name="$PROJECT" --branch=main --commit-dirty=true 2>&1)
+          code=$?
+          echo "$out"
+          if [ $code -ne 0 ]; then echo "::error::deploy: $(echo "$out" | tail -15 | tr '\n' ' ' | cut -c1-600)"; exit 1; fi
+          echo "::notice::deploy: $(echo "$out" | tail -4 | tr '\n' ' ')"
 
       - name: Attach custom domains
         continue-on-error: true
