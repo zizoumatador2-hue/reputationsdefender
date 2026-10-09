@@ -1,13 +1,5 @@
 name = "reputationsdefender"
-type = "javascript"
 compatibility_date = "2024-11-15"
 
-# Pages configuration
+# Cloudflare Pages configuration
 pages_build_output_dir = "dist"
-
-[env.production]
-name = "reputationsdefender"
-routes = [
-  { pattern = "reputationsdefender.com/*", zone_name = "reputationsdefender.com" },
-  { pattern = "www.reputationsdefender.com/*", zone_name = "reputationsdefender.com" }
-]
