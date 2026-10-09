@@ -50,3 +50,28 @@ jobs:
           fi
 
           echo "Deployment completed"
+
+      - name: Link Custom Domain
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "Linking custom domain: reputationsdefender.com"
+
+          TOKEN=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '\n\r')
+          ACCOUNT_ID=$(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | tr -d '\n\r')
+
+          # Add root domain
+          curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/reputationsdefender/domains" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"name":"reputationsdefender.com"}' | python3 -m json.tool
+
+          echo ""
+
+          # Add www domain
+          curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/reputationsdefender/domains" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"name":"www.reputationsdefender.com"}' | python3 -m json.tool
