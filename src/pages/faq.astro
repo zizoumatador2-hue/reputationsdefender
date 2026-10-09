@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+
+const faqs = [
+  { question: 'Can I remove myself from Google completely?', answer: "No service — including Google itself — can make you disappear from search entirely. You can request removal of specific categories of sensitive personal information, and build stronger, more accurate content that competes with unwanted results, but complete invisibility isn't realistic for most people." },
+  { question: 'Does Google removal delete the original webpage?', answer: 'No. Removing a result from Google Search only affects what appears in Google — the underlying page usually stays live on the original site unless you separately contact that website.' },
+  { question: 'How much does online reputation management cost?', answer: 'Many high-impact steps — Google removal requests, data broker opt-outs, review responses — are free and can be done yourself. Paid services vary widely in cost and should be tied to specific, described work rather than a guaranteed outcome.' },
+  { question: 'Is it legal to pay someone to remove negative content about me?', answer: "Paying a legitimate service to pursue legal removal requests or build competing content is legal. Paying to take down factual, legally published content against the publisher's wishes, or paying for fake reviews, is not." },
+  { question: 'How long does it take to see results?', answer: 'Direct removals, where eligible, can take days to a few weeks. Improving overall search presence through genuine content typically takes several months of consistent effort.' },
+  { question: 'What are data brokers?', answer: "Companies that compile public records — property filings, voter registration, court records — into searchable personal profiles and sell access to them. People-search sites like Whitepages and Spokeo are consumer-facing examples." },
+  { question: 'Do I need to pay data broker sites to remove my listing?', answer: "No. Legitimate opt-outs are free. Many states also give residents a statutory right to request deletion." },
+  { question: 'Can I remove a negative but true review about my business?', answer: "Generally no, if the review reflects a genuine customer experience and doesn't violate the platform's content policies. You can respond publicly and professionally, and report reviews that are fake or policy-violating." },
+  { question: "What's the difference between privacy protection and reputation management?", answer: 'Privacy protection limits exposure of personal information like your address or phone number. Reputation management covers the overall picture of what appears when your name or business is searched. They overlap but are different projects.' },
+  { question: 'Can a reputation management company guarantee results?', answer: "No legitimate company can guarantee a specific Google ranking or guaranteed removal — no outside party controls Google's algorithm or a platform's moderation decisions to that degree. Treat any such guarantee as a red flag." }
+];
+---
+<BaseLayout title="Frequently Asked Questions" description="Answers to common questions about online privacy, personal information removal, and reputation management.">
+  <SchemaOrg type="FAQPage" faqs={faqs} />
+  <div class="container section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'FAQ', url: '/faq/' }]} />
+    <h1>Frequently Asked Questions</h1>
+    <div class="faq-list">
+      {faqs.map((f) => (
+        <div class="faq-item">
+          <h2>{f.question}</h2>
+          <p>{f.answer}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; max-width: 760px; margin-inline: auto; }
+  .faq-item { margin-bottom: 2rem; }
+  .faq-item h2 { font-size: 1.1rem; margin-top: 0; }
+</style>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../lib/site';
+---
+<BaseLayout title="Contact Us" description={`Get in touch with the ${SITE.name} team with questions, corrections, or feedback.`}>
+  <div class="container section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact/' }]} />
+    <h1>Contact Us</h1>
+    <p>
+      We welcome questions about our content, corrections, and general feedback. {SITE.name} is an independent publisher and does not provide individualized legal advice — for legal questions about your specific situation, please consult a licensed attorney in your state.
+    </p>
+    <p>
+      <strong>Email:</strong> <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+    </p>
+
+    <h2>What We Can Help With</h2>
+    <ul>
+      <li>Corrections to factual errors in our articles</li>
+      <li>Questions about our editorial or affiliate policies</li>
+      <li>General feedback on site content</li>
+    </ul>
+
+    <h2>What We Can't Help With</h2>
+    <ul>
+      <li>Individualized legal advice</li>
+      <li>Direct removal of content from third-party websites we don't own or operate</li>
+      <li>Urgent safety matters — if you're in immediate danger, please contact local law enforcement or the 988 Suicide &amp; Crisis Lifeline.</li>
+    </ul>
+
+    <p>We aim to respond to emails within a few business days.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; max-width: 760px; margin-inline: auto; }
+</style>

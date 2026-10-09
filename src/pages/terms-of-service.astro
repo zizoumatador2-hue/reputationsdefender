@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../lib/site';
+const lastUpdated = 'October 9, 2026';
+---
+<BaseLayout title="Terms of Service" description={`The terms governing your use of ${SITE.name}.`}>
+  <div class="container section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Terms of Service', url: '/terms-of-service/' }]} />
+    <h1>Terms of Service</h1>
+    <p>Last updated: {lastUpdated}</p>
+
+    <p>By accessing or using {SITE.domain} (the "Site"), you agree to the following terms.</p>
+
+    <h2>Educational Content, Not Legal Advice</h2>
+    <p>
+      Content on this Site is provided for general informational and educational purposes only. It does not constitute legal, financial, or professional advice, and should not be relied upon as a substitute for consultation with a licensed attorney or other qualified professional regarding your specific situation.
+    </p>
+
+    <h2>No Guaranteed Outcomes</h2>
+    <p>
+      We do not guarantee that following any guidance on this Site will result in the removal of specific content from Google or any other platform, a specific change in search rankings, or any other particular outcome. Search engine and platform policies, and the law, can change, and individual circumstances vary.
+    </p>
+
+    <h2>Accuracy of Content</h2>
+    <p>
+      We make reasonable efforts to keep content accurate and current, and we note publish and update dates on our articles. Policies referenced in our guides (such as those of Google, data broker sites, or review platforms) are controlled by those third parties and may change without notice; always verify current policy directly with the relevant platform.
+    </p>
+
+    <h2>Third-Party Links and Services</h2>
+    <p>
+      Our content links to third-party websites, tools, and in some cases affiliate partners. We do not control and are not responsible for the content, accuracy, or practices of third-party sites. See our <a href="/affiliate-disclosure/">Affiliate Disclosure</a> for details on how affiliate relationships work on this Site.
+    </p>
+
+    <h2>Intellectual Property</h2>
+    <p>
+      Content on this Site, including text and original graphics, is owned by {SITE.name} unless otherwise noted, and may not be reproduced without permission, except for brief excerpts with attribution and a link back to the source.
+    </p>
+
+    <h2>Limitation of Liability</h2>
+    <p>
+      To the fullest extent permitted by law, {SITE.name} and its operators are not liable for any damages arising from your use of, or inability to use, this Site or reliance on its content.
+    </p>
+
+    <h2>Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. Continued use of the Site after changes constitutes acceptance of the revised Terms.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about these Terms can be sent to <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; max-width: 760px; margin-inline: auto; }
+</style>

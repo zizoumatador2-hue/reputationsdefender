@@ -1,0 +1,84 @@
+---
+import { SITE } from '../lib/site';
+
+interface Props {
+  type: 'Organization' | 'Article' | 'FAQPage' | 'BreadcrumbList';
+  article?: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    modDate: Date;
+    author: string;
+    slug: string;
+  };
+  faqs?: { question: string; answer: string }[];
+  breadcrumbs?: { name: string; url: string }[];
+}
+
+const { type, article, faqs, breadcrumbs } = Astro.props;
+
+let schema: Record<string, unknown> = {};
+
+if (type === 'Organization') {
+  schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    logo: new URL('/images/logo.png', SITE.url).toString(),
+    description: SITE.description,
+    email: SITE.contactEmail,
+    sameAs: []
+  };
+} else if (type === 'Article' && article) {
+  schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.description,
+    datePublished: article.pubDate.toISOString(),
+    dateModified: article.modDate.toISOString(),
+    author: {
+      '@type': 'Person',
+      name: article.author
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: new URL('/images/logo.png', SITE.url).toString()
+      }
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': new URL(article.slug, SITE.url).toString()
+    }
+  };
+} else if (type === 'FAQPage' && faqs) {
+  schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer
+      }
+    }))
+  };
+} else if (type === 'BreadcrumbList' && breadcrumbs) {
+  schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: b.name,
+      item: new URL(b.url, SITE.url).toString()
+    }))
+  };
+}
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../lib/site';
+const lastUpdated = 'October 9, 2026';
+---
+<BaseLayout title="Privacy Policy" description={`How ${SITE.name} collects, uses, and protects information from visitors to our site.`}>
+  <div class="container section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Privacy Policy', url: '/privacy-policy/' }]} />
+    <h1>Privacy Policy</h1>
+    <p>Last updated: {lastUpdated}</p>
+
+    <p>
+      This Privacy Policy explains how {SITE.name} ("we," "us," or "our"), operated at {SITE.domain}, collects, uses, and discloses information when you visit our website. We built this site to help people protect their own privacy, so we've tried to keep our own data practices straightforward.
+    </p>
+
+    <h2>Information We Collect</h2>
+    <p><strong>Information you provide directly:</strong> If you contact us by email, we receive your email address and whatever information you choose to include in your message.</p>
+    <p><strong>Automatically collected information:</strong> Like most websites, we may use analytics tools and advertising partners (including Google AdSense) that collect standard technical information such as IP address, browser type, device type, pages visited, and referring site, typically through cookies or similar technologies.</p>
+
+    <h2>How We Use Information</h2>
+    <ul>
+      <li>To respond to inquiries sent through our contact form or email</li>
+      <li>To understand aggregate site usage and improve our content</li>
+      <li>To serve relevant advertising through third-party ad networks</li>
+    </ul>
+
+    <h2>Cookies and Advertising</h2>
+    <p>
+      We may use cookies and similar technologies for site functionality, analytics, and advertising. Third-party advertising partners, including Google, may use cookies to serve ads based on your visits to this and other websites. You can learn more about Google's advertising practices and opt out of personalized advertising at <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ads Settings</a>.
+    </p>
+
+    <h2>Third-Party Links</h2>
+    <p>
+      Our articles link to external resources, including government tools, platform removal forms, and in some cases affiliate partners (see our <a href="/affiliate-disclosure/">Affiliate Disclosure</a>). We are not responsible for the privacy practices of third-party websites.
+    </p>
+
+    <h2>Your Choices</h2>
+    <p>
+      Most browsers let you control or block cookies through their settings. Blocking cookies may affect some site functionality. You can also use browser extensions or built-in tracker-blocking features for additional control.
+    </p>
+
+    <h2>Children's Privacy</h2>
+    <p>This site is not directed at children under 13, and we do not knowingly collect personal information from children.</p>
+
+    <h2>Changes to This Policy</h2>
+    <p>We may update this policy periodically. Material changes will be reflected by an updated "Last updated" date above.</p>
+
+    <h2>Contact Us</h2>
+    <p>Questions about this policy can be sent to <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; max-width: 760px; margin-inline: auto; }
+</style>

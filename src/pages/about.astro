@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../lib/site';
+---
+<BaseLayout title="About Us" description={`Learn about ${SITE.name}, our editorial approach, and the person behind the site.`}>
+  <div class="container section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'About', url: '/about/' }]} />
+    <h1>About {SITE.name}</h1>
+    <p>
+      {SITE.name} is an independent, US-focused information resource covering online privacy, personal information removal, Google search management, and online reputation. We started this site because most content in this space falls into one of two unhelpful categories: vague listicles that don't explain how anything actually works, or sales pages dressed up as articles, promising guaranteed removals and guaranteed rankings that no one can actually deliver.
+    </p>
+    <p>
+      Our goal is simpler: explain, specifically and honestly, what tools and processes actually exist — Google's own removal policies, data broker opt-out rights under state privacy laws, legitimate review-management practices — and what the realistic limits of each are.
+    </p>
+
+    <h2>Who Writes This</h2>
+    <p>
+      {SITE.name} is edited by {SITE.author.name}. {SITE.author.bio}
+    </p>
+
+    <h2>Our Editorial Standards</h2>
+    <ul>
+      <li>We do not fabricate statistics, case studies, testimonials, or expert quotes.</li>
+      <li>We do not promise guaranteed Google rankings or guaranteed content removal, and we're skeptical of anyone who does.</li>
+      <li>We clearly separate general educational information from legal advice — for anything involving your specific legal situation, we point readers toward a licensed attorney in their state.</li>
+      <li>Articles are reviewed and updated periodically; see the "last updated" date on each guide.</li>
+    </ul>
+    <p>See our full <a href="/editorial-policy/">editorial policy</a> for more detail, including how we handle affiliate relationships and advertising.</p>
+
+    <h2>Contact</h2>
+    <p>Questions, corrections, or removal requests related to this site itself can be sent to <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>, or through our <a href="/contact/">contact page</a>.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; max-width: 760px; margin-inline: auto; }
+</style>

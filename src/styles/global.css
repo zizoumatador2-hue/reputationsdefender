@@ -1,0 +1,172 @@
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+
+  --color-bg: #ffffff;
+  --color-bg-alt: #f6f8fa;
+  --color-surface: #ffffff;
+  --color-border: #e2e6ea;
+  --color-text: #1a2433;
+  --color-text-muted: #55606e;
+  --color-primary: #0b3d62;
+  --color-primary-dark: #082b46;
+  --color-accent: #0f8f7e;
+  --color-accent-dark: #0b6c5f;
+  --color-warning-bg: #fff6e5;
+  --color-warning-border: #f0c975;
+  --color-link: #0b5d8f;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --max-width: 1120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #0e141b;
+    --color-bg-alt: #141c25;
+    --color-surface: #161f29;
+    --color-border: #263241;
+    --color-text: #e7edf3;
+    --color-text-muted: #a7b3c0;
+    --color-primary: #5fa8d3;
+    --color-primary-dark: #3f87b3;
+    --color-accent: #35c2a8;
+    --color-accent-dark: #28a890;
+    --color-warning-bg: #2a2410;
+    --color-warning-border: #6b551b;
+    --color-link: #7cc1ef;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #0e141b;
+  --color-bg-alt: #141c25;
+  --color-surface: #161f29;
+  --color-border: #263241;
+  --color-text: #e7edf3;
+  --color-text-muted: #a7b3c0;
+  --color-primary: #5fa8d3;
+  --color-primary-dark: #3f87b3;
+  --color-accent: #35c2a8;
+  --color-accent-dark: #28a890;
+  --color-warning-bg: #2a2410;
+  --color-warning-border: #6b551b;
+  --color-link: #7cc1ef;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg, video { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--color-link); }
+a:hover { text-decoration-thickness: 2px; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--color-text);
+}
+h1 { font-size: clamp(2rem, 4vw, 2.75rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 2.5em; }
+h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); margin-top: 1.75em; }
+
+p { margin: 0 0 1.2em; }
+
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.prose p, .prose li { color: var(--color-text); }
+.prose { max-width: 72ch; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin-bottom: 0.5em; }
+.prose table { width: 100%; border-collapse: collapse; margin: 1.5em 0; }
+.prose th, .prose td {
+  border: 1px solid var(--color-border);
+  padding: 0.6em 0.8em;
+  text-align: left;
+  font-size: 0.95em;
+}
+.prose th { background: var(--color-bg-alt); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.75em 1.4em;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  min-height: 48px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--color-accent-dark); }
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.callout {
+  background: var(--color-warning-bg);
+  border: 1px solid var(--color-warning-border);
+  border-radius: var(--radius-md);
+  padding: 1.1em 1.3em;
+  margin: 1.75em 0;
+  font-size: 0.97em;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.75em 1.25em;
+  z-index: 1000;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus { left: 0; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+}

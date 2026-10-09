@@ -1,0 +1,30 @@
+---
+import SchemaOrg from './SchemaOrg.astro';
+
+interface Props {
+  items: { name: string; url: string }[];
+}
+const { items } = Astro.props;
+---
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol>
+    {items.map((item, i) => (
+      <li>
+        {i < items.length - 1 ? (
+          <><a href={item.url}>{item.name}</a><span aria-hidden="true"> / </span></>
+        ) : (
+          <span aria-current="page">{item.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+<SchemaOrg type="BreadcrumbList" breadcrumbs={items} />
+
+<style>
+  .breadcrumbs { font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 1.5rem; }
+  .breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; margin: 0; padding: 0; }
+  .breadcrumbs li { display: inline-flex; align-items: center; }
+  .breadcrumbs a { color: var(--color-text-muted); text-decoration: none; }
+  .breadcrumbs a:hover { color: var(--color-primary); }
+</style>

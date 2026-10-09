@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import { SITE } from '../lib/site';
+
+const faqs = [
+  {
+    question: 'Can I remove myself from Google completely?',
+    answer: "No service — including Google itself — can make you disappear from search entirely. You can request removal of specific categories of sensitive personal information, and you can build stronger, more accurate content that competes with unwanted results, but complete invisibility isn't realistic or, for most people, actually the goal."
+  },
+  {
+    question: 'How much does online reputation management cost?',
+    answer: 'It depends heavily on scope. Many of the highest-impact steps — Google removal requests, data broker opt-outs, review responses — are free and can be done yourself. Paid services typically range from ongoing monthly monitoring plans to larger projects for complex, multi-result situations, and pricing should always be tied to specific, described work rather than a guaranteed outcome.'
+  },
+  {
+    question: 'Is it legal to pay someone to remove negative content about me?',
+    answer: "Paying a legitimate service to pursue legal removal requests, contact publishers, or build competing content is legal. Paying to have factual, legally published content taken down against the publisher's wishes, or paying for fake positive reviews or content, is not — and can create legal exposure of its own."
+  },
+  {
+    question: 'How long does it take to see results?',
+    answer: "Direct removals (where they qualify) can take days to a few weeks. Improving your overall search presence through genuine content and profile-building typically takes several months of consistent effort before meaningful, durable movement appears."
+  },
+  {
+    question: "What's the difference between privacy protection and reputation management?",
+    answer: 'Privacy protection is about limiting how much of your personal information (address, phone number, financial details) is exposed or discoverable. Reputation management is about what shows up when someone searches your name or business — the overall picture, not just raw personal data. The two overlap but aren\'t the same project.'
+  }
+];
+---
+<BaseLayout
+  title="Online Reputation, Privacy & Google Search Management | ReputationsDefender"
+  description="Plain-English, US-focused guidance on protecting your online privacy, removing personal information from Google, and managing what people find when they search your name."
+>
+  <SchemaOrg type="FAQPage" faqs={faqs} />
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <h1>Take Control of What Google Shows When Someone Searches Your Name</h1>
+        <p class="hero-sub">
+          {SITE.name} is a free, US-focused resource on online privacy, personal information removal, and search &amp; reputation management — written in plain English, with no guaranteed-ranking hype and no scare tactics.
+        </p>
+        <div class="hero-ctas">
+          <a href="/personal-information-removal/" class="btn btn-primary">Remove My Information</a>
+          <a href="/privacy-guides/" class="btn btn-outline">Browse the Guides</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2>Why What Shows Up on Google Actually Matters</h2>
+    <div class="prose">
+      <p>
+        Most people's first real interaction with a stranger — a hiring manager, a new client, a date, a landlord — now starts with a Google search of their name before any conversation happens. That search result is, in a very real sense, a first impression you don't get to control the way you'd control a handshake or a cover letter. Sometimes what appears is accurate and fine. Sometimes it's an old data-broker listing with your home address and phone number sitting in plain view. Sometimes it's a years-old news story, a review gone viral, or simply nothing at all — a blank slate that looks evasive rather than private.
+      </p>
+      <p>
+        This site exists to walk through, honestly and specifically, what you can actually do about each of those situations — and just as importantly, what you can't, because a lot of the reputation-management industry sells guarantees no one can actually deliver. We'd rather you understand the real mechanics and make an informed decision, whether that means doing the work yourself or hiring help.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section topic-grid-section">
+    <h2>Start With Your Situation</h2>
+    <div class="topic-grid">
+      <a href="/personal-information-removal/" class="card topic-card">
+        <h3>Remove My Personal Information</h3>
+        <p>Phone number, home address, or email showing up in search? Start here.</p>
+      </a>
+      <a href="/google-search/" class="card topic-card">
+        <h3>Fix My Google Search Results</h3>
+        <p>Outdated, negative, or inaccurate results appearing for your name.</p>
+      </a>
+      <a href="/data-brokers/" class="card topic-card">
+        <h3>Get Off People-Search Sites</h3>
+        <p>Opt out of Whitepages, Spokeo, BeenVerified, and similar sites.</p>
+      </a>
+      <a href="/online-reviews/" class="card topic-card">
+        <h3>Manage Reviews &amp; Business Reputation</h3>
+        <p>Respond to negative reviews and build a stronger business presence.</p>
+      </a>
+      <a href="/personal-privacy/" class="card topic-card">
+        <h3>Protect My Privacy Going Forward</h3>
+        <p>Practical habits and settings that reduce future exposure.</p>
+      </a>
+      <a href="/personal-branding/" class="card topic-card">
+        <h3>Build a Stronger Personal Brand</h3>
+        <p>Make your own accurate content rank where it matters.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2>How to Remove Personal Information From Google</h2>
+    <div class="prose">
+      <p>
+        Google doesn't remove search results just because they're unflattering — but it does maintain specific, fairly generous policies for removing genuinely sensitive personal information: Social Security and financial account numbers, non-consensual explicit imagery, and personal contact details shared in a way that enables harassment or threats. The practical tool for most people is Google's <strong>Results about you</strong> dashboard, which lets you search for your own exposed information and submit a removal request directly.
+      </p>
+      <p>
+        It's worth understanding one limitation upfront, because it trips up almost everyone the first time: removing a result from Google Search doesn't delete the underlying webpage. If a data broker published your address, a successful Google removal stops that listing from appearing in Google's results — the page itself is usually still live on the broker's own site, and may still appear in other search engines or if someone visits the site directly. Getting the information off the internet entirely requires a second step: contacting the website itself, which has its own process depending on whether it's a people-search site or something else.
+      </p>
+      <p>
+        We've written a full step-by-step walkthrough of this process, including exactly how to use Google's tools and how to follow up at the source: <a href="/privacy-guides/how-to-remove-personal-information-from-google/">How to Remove Personal Information From Google</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2>Getting Off Data Broker and People-Search Sites</h2>
+    <div class="prose">
+      <p>
+        Sites like Whitepages, Spokeo, BeenVerified, Intelius, and dozens of others compile public records — property filings, voter registration, court records — into searchable personal profiles. They're the most common source of a home address or phone number showing up in a casual name search, and because there are so many of them pulling from overlapping sources, a single opt-out doesn't fix the whole problem.
+      </p>
+      <p>
+        The realistic approach is a batch opt-out process across the major sites, followed by periodic re-checking, since brokers re-scrape public records and listings can reappear months later. Residents of states with consumer privacy laws — California's CCPA/CPRA most notably, which also runs a centralized data broker registry — have a stronger statutory basis for these requests. Our detailed guide covers the process site by site: <a href="/privacy-guides/remove-information-from-people-search-sites/">How to Remove Your Information From People-Search Sites</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2>Dealing With Negative or Outdated Search Results</h2>
+    <div class="prose">
+      <p>
+        An old news story, a critical blog post, or outdated information ranking for your name is a different problem from exposed personal data, and it calls for a different approach — because Google generally won't remove legitimate, legally published content simply because it's unflattering or old. Where the underlying record can be changed (an expunged court record, a corrected factual error), that's the fastest fix. For everything else, the legitimate path is building genuine, well-linked, current content — a complete LinkedIn profile, a personal website, contributions to relevant publications — that gives Google (and the people searching) more accurate, substantial information to rank alongside, or eventually above, the old result.
+      </p>
+      <p>
+        This takes real time — typically months of consistent effort, not a quick fix — and it won't work for everything; major, well-established news coverage is particularly resistant to being outranked. We walk through the realistic process and expectations here: <a href="/privacy-guides/how-to-deal-with-negative-search-results/">How to Deal With Negative Search Results</a> and <a href="/privacy-guides/how-to-improve-google-search-results-for-your-name/">How to Improve Google Search Results for Your Name</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2>Protecting Your Privacy Going Forward</h2>
+    <div class="prose">
+      <p>
+        Cleanup is one half of this; prevention is the other. Reducing how much new personal information gets exposed going forward is a matter of a few durable habits: two-factor authentication on your core accounts, reviewing what's publicly visible on social profiles (checked as a stranger would see them, not while logged in), using unique passwords and a password manager, and being deliberate about what gets shared publicly — particularly details commonly used in security questions, like a street you grew up on or a pet's name.
+      </p>
+      <p>
+        Full details, including browser settings and ongoing monitoring tools, are in our guide: <a href="/privacy-guides/how-to-protect-personal-information-online/">How to Protect Your Personal Information Online</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2>Online Reputation Management for Businesses</h2>
+    <div class="prose">
+      <p>
+        For a business, reputation management is less about personal information and more about reviews and search visibility: an accurate, complete Google Business Profile, a consistent review-response process, and content that competes well when a prospective customer searches your business name. It's also an area where bad actors are common — fake positive reviews, paid review brokers, and guaranteed-ranking pitches are all either against platform rules, against FTC guidelines, or simply not something anyone can actually deliver.
+      </p>
+      <p>
+        Our guide covers the legitimate approach, plus the specific red flags that separate a real reputation management service from one overselling what it can do: <a href="/business-reputation/">Online Reputation Management for Businesses</a> and <a href="/online-reviews/">Managing Online Reviews</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section callout-section">
+    <div class="callout">
+      <strong>A note on guarantees:</strong> No company — including reputation management firms — can guarantee a specific Google ranking, a specific removal outcome, or a specific timeline. Google's algorithm and platform moderation decisions aren't controlled by any outside party. Be skeptical of anyone who claims otherwise, including us; this site explains realistic, legitimate approaches, not shortcuts.
+    </div>
+  </section>
+
+  <section class="container section faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      {faqs.map((f) => (
+        <details class="faq-item">
+          <summary>{f.question}</summary>
+          <p>{f.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    background: linear-gradient(180deg, var(--color-bg-alt), var(--color-bg));
+    padding-block: 3.5rem 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hero-inner { max-width: 760px; }
+  .hero-sub { font-size: 1.15rem; color: var(--color-text-muted); margin-top: 1rem; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.75rem; }
+
+  .section { padding-block: 2.75rem; }
+  .section h2:first-child { margin-top: 0; }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .topic-card {
+    display: block;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .topic-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .topic-card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; color: var(--color-primary); }
+  .topic-card p { margin: 0; color: var(--color-text-muted); font-size: 0.92rem; }
+
+  .faq-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+  }
+  .faq-item summary { cursor: pointer; font-weight: 600; }
+  .faq-item p { margin-top: 0.75rem; color: var(--color-text-muted); }
+
+  @media (max-width: 860px) {
+    .topic-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .topic-grid { grid-template-columns: 1fr; }
+  }
+</style>

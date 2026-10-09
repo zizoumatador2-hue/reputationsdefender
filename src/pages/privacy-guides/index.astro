@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const articles = (await getCollection('articles')).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+<BaseLayout title="Privacy & Reputation Guides" description="All step-by-step guides from ReputationsDefender on online privacy, personal information removal, and Google search management.">
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Guides', url: '/privacy-guides/' }]} />
+    <h1>All Guides</h1>
+    <p class="lead">Step-by-step, US-focused guides on privacy, personal information removal, and search &amp; reputation management.</p>
+    <div class="article-list">
+      {articles.map((a) => (
+        <a href={`/privacy-guides/${a.id}/`} class="card article-card">
+          <h2>{a.data.title}</h2>
+          <p>{a.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; }
+  .lead { font-size: 1.1rem; color: var(--color-text-muted); max-width: 65ch; margin-bottom: 2rem; }
+  .article-list { display: flex; flex-direction: column; gap: 1rem; }
+  .article-card { display: block; padding: 1.5rem; text-decoration: none; color: var(--color-text); }
+  .article-card h2 { margin: 0 0 0.5rem; font-size: 1.15rem; color: var(--color-primary); }
+  .article-card p { margin: 0; color: var(--color-text-muted); }
+</style>

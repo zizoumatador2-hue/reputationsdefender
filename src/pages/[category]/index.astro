@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const categoryMeta: Record<string, { label: string; description: string }> = {
+  'online-reputation': {
+    label: 'Online Reputation',
+    description: 'Guides on monitoring and managing what appears when people search your name, for individuals and public-facing professionals.'
+  },
+  'google-search': {
+    label: 'Google Search & Search Results',
+    description: 'How Google indexing, removal policies, and ranking actually work — and what you can legitimately do about your search results.'
+  },
+  'personal-privacy': {
+    label: 'Personal Privacy',
+    description: 'Practical, non-paranoid guidance on reducing your personal information exposure online.'
+  },
+  'personal-information-removal': {
+    label: 'Personal Information Removal',
+    description: 'Step-by-step removal processes for Google, data brokers, and other sources of exposed personal information.'
+  },
+  'data-brokers': {
+    label: 'Data Brokers & People-Search Sites',
+    description: 'How data brokers compile and sell your information, and how to opt out of the major ones.'
+  },
+  'business-reputation': {
+    label: 'Business Reputation',
+    description: 'Review management and search visibility guidance for small businesses and professionals.'
+  },
+  'online-reviews': {
+    label: 'Online Reviews',
+    description: 'How to respond to negative reviews, generate genuine positive ones, and stay within platform rules.'
+  },
+  'personal-branding': {
+    label: 'Personal Branding',
+    description: 'Building an accurate, strong online presence that represents you well in search results.'
+  }
+};
+
+export async function getStaticPaths() {
+  return Object.keys({
+    'online-reputation': 1, 'google-search': 1, 'personal-privacy': 1,
+    'personal-information-removal': 1, 'data-brokers': 1, 'business-reputation': 1,
+    'online-reviews': 1, 'personal-branding': 1
+  }).map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+const meta = categoryMeta[category as string];
+const allArticles = await getCollection('articles');
+const articles = allArticles.filter((a) => a.data.category === category);
+---
+<BaseLayout title={meta.label} description={meta.description}>
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: meta.label, url: `/${category}/` }]} />
+    <h1>{meta.label}</h1>
+    <p class="lead">{meta.description}</p>
+
+    {articles.length > 0 ? (
+      <div class="article-list">
+        {articles.map((a) => (
+          <a href={`/privacy-guides/${a.id}/`} class="card article-card">
+            <h2>{a.data.title}</h2>
+            <p>{a.data.description}</p>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="prose">More guides for this topic are coming soon. In the meantime, browse <a href="/privacy-guides/">all guides</a>.</p>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; }
+  .lead { font-size: 1.1rem; color: var(--color-text-muted); max-width: 65ch; margin-bottom: 2rem; }
+  .article-list { display: flex; flex-direction: column; gap: 1rem; }
+  .article-card { display: block; padding: 1.5rem; text-decoration: none; color: var(--color-text); }
+  .article-card h2 { margin: 0 0 0.5rem; font-size: 1.15rem; color: var(--color-primary); }
+  .article-card p { margin: 0; color: var(--color-text-muted); }
+</style>

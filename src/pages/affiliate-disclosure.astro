@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../lib/site';
+---
+<BaseLayout title="Affiliate Disclosure" description={`How ${SITE.name} is funded, including advertising and affiliate relationships.`}>
+  <div class="container section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Affiliate Disclosure', url: '/affiliate-disclosure/' }]} />
+    <h1>Affiliate Disclosure</h1>
+
+    <p>
+      {SITE.name} is free to use and is supported through advertising, including Google AdSense, and in some cases affiliate relationships with services relevant to our content, such as privacy or identity-monitoring tools.
+    </p>
+
+    <h2>What This Means</h2>
+    <p>
+      When we link to a third-party product or service as an affiliate partner, we may earn a commission if you sign up or make a purchase through that link, at no additional cost to you. This does not affect the price you pay.
+    </p>
+
+    <h2>Our Commitment</h2>
+    <ul>
+      <li>Affiliate relationships do not determine which topics we cover or what our articles say.</li>
+      <li>We do not recommend a product or service solely because it offers a commission.</li>
+      <li>We do not accept payment in exchange for favorable coverage, and we do not publish paid reviews presented as independent editorial content.</li>
+      <li>Any guaranteed-outcome claims made by a third-party service we mention are that service's claims, not ours — see our note on realistic expectations throughout our guides.</li>
+    </ul>
+
+    <p>
+      This disclosure is provided in accordance with FTC guidelines on endorsements and testimonials. If you have questions about a specific link or partnership, contact us at <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; max-width: 760px; margin-inline: auto; }
+</style>

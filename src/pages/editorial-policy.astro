@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../lib/site';
+---
+<BaseLayout title="Editorial Policy" description={`How ${SITE.name} researches, writes, and maintains its content.`}>
+  <div class="container section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Editorial Policy', url: '/editorial-policy/' }]} />
+    <h1>Editorial Policy</h1>
+
+    <h2>Our Approach</h2>
+    <p>
+      {SITE.name} publishes original, practically focused content on online privacy, personal information removal, and reputation management. We write for people actually trying to solve a problem — a data broker listing, a negative search result, a damaging review — not to rank for keywords for their own sake.
+    </p>
+
+    <h2>What We Do</h2>
+    <ul>
+      <li>Research platform policies (Google's removal policies, state privacy laws, review-platform guidelines) directly from primary sources before writing about them.</li>
+      <li>Write in plain, specific language, with step-by-step instructions where applicable.</li>
+      <li>Distinguish clearly between free, legitimate self-help steps and situations where professional or legal help is genuinely warranted.</li>
+      <li>Review and update articles periodically, reflected in the "last updated" date shown on each piece.</li>
+    </ul>
+
+    <h2>What We Don't Do</h2>
+    <ul>
+      <li>We don't fabricate statistics, studies, testimonials, or expert quotes.</li>
+      <li>We don't promise guaranteed Google rankings or guaranteed content removal.</li>
+      <li>We don't present legal advice as a substitute for consulting a licensed attorney about your specific situation.</li>
+      <li>We don't accept payment in exchange for favorable editorial coverage.</li>
+    </ul>
+
+    <h2>Corrections</h2>
+    <p>
+      If you find a factual error in our content, please let us know at <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>. We review correction requests and update articles when warranted, noting the updated date.
+    </p>
+
+    <h2>Monetization</h2>
+    <p>
+      This Site is supported by advertising and, in some cases, affiliate relationships. See our <a href="/affiliate-disclosure/">Affiliate Disclosure</a> for full detail. Monetization does not influence what topics we cover or what our articles conclude.
+    </p>
+
+    <h2>Authorship</h2>
+    <p>
+      Articles are written and reviewed by {SITE.author.name}. See our <a href="/about/">About page</a> for background.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .section { padding-block: 2rem 4rem; max-width: 760px; margin-inline: auto; }
+</style>

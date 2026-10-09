@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const categoryMap: Record<string, { label: string; href: string }> = {
+  'online-reputation': { label: 'Online Reputation', href: '/online-reputation/' },
+  'google-search': { label: 'Google Search', href: '/google-search/' },
+  'personal-privacy': { label: 'Personal Privacy', href: '/personal-privacy/' },
+  'personal-information-removal': { label: 'Personal Information Removal', href: '/personal-information-removal/' },
+  'data-brokers': { label: 'Data Brokers', href: '/data-brokers/' },
+  'business-reputation': { label: 'Business Reputation', href: '/business-reputation/' },
+  'online-reviews': { label: 'Online Reviews', href: '/online-reviews/' },
+  'personal-branding': { label: 'Personal Branding', href: '/personal-branding/' }
+};
+
+const cat = categoryMap[article.data.category];
+---
+<ArticleLayout
+  title={article.data.title}
+  description={article.data.description}
+  pubDate={article.data.pubDate}
+  modDate={article.data.modDate}
+  author={article.data.author}
+  slug={`/privacy-guides/${article.id}/`}
+  categoryLabel={cat.label}
+  categoryHref={cat.href}
+>
+  <Content />
+</ArticleLayout>
