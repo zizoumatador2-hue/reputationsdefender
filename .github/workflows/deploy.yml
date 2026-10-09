@@ -28,34 +28,23 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Verify Cloudflare secrets
+      - name: Deploy to Cloudflare Pages
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          # Validate secrets exist
-          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "::error::Cloudflare secrets are empty"
+          echo "::notice::Starting Cloudflare Pages deployment..."
+
+          if [ -z "$WRANGLER_API_TOKEN" ]; then
+            echo "::error::Cloudflare API token is missing"
             exit 1
           fi
 
-          echo "::notice::Token length: ${#CLOUDFLARE_API_TOKEN} chars"
-          echo "::notice::Account ID: $CLOUDFLARE_ACCOUNT_ID"
-          echo "::notice::✅ Secrets loaded successfully"
+          echo "::notice::Project: $PROJECT"
+          echo "::notice::Deploying from dist/ directory..."
 
-      - name: Deploy to Cloudflare Pages with Wrangler
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          echo "::notice::Starting Cloudflare Pages deployment..."
-          echo "Project: $PROJECT"
-          echo "Account ID: $CLOUDFLARE_ACCOUNT_ID"
-          echo "Token length: ${#CLOUDFLARE_API_TOKEN}"
-
-          npx --yes wrangler@4 pages deploy dist \
-            --project-name="$PROJECT" \
-            --branch=main
+          npx --yes wrangler@latest pages deploy dist \
+            --project-name "$PROJECT" \
+            --branch main
 
       - name: Attach custom domains
         continue-on-error: true
@@ -63,10 +52,14 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
+          # Clean the token
+          TOKEN=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '\n\r')
+          ACCOUNT_ID=$(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | tr -d '\n\r')
+
           for d in reputationsdefender.com www.reputationsdefender.com; do
             echo "Attaching domain: $d"
-            curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT/domains" \
-              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/$PROJECT/domains" \
+              -H "Authorization: Bearer $TOKEN" \
               -H "Content-Type: application/json" \
               -d "{\"name\":\"$d\"}" | python3 -m json.tool
           done
@@ -77,9 +70,12 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
+          # Clean the token
+          TOKEN=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '\n\r')
+
           # Get the zone ID for the domain
           zone_response=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=reputationsdefender.com" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+            -H "Authorization: Bearer $TOKEN")
 
           zone_id=$(echo "$zone_response" | python3 -c 'import sys,json; r=json.load(sys.stdin).get("result",[]); print(r[0]["id"] if r else "")' 2>/dev/null)
 
@@ -96,7 +92,7 @@ jobs:
             echo "Adding CNAME record for $record_name → $PROJECT.pages.dev"
 
             curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records" \
-              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              -H "Authorization: Bearer $TOKEN" \
               -H "Content-Type: application/json" \
               -d "{\"type\":\"CNAME\",\"name\":\"$record_name\",\"content\":\"$PROJECT.pages.dev\",\"proxied\":true}" | python3 -m json.tool
           done
@@ -107,10 +103,14 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
+          # Clean the token
+          TOKEN=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '\n\r')
+          ACCOUNT_ID=$(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | tr -d '\n\r')
+
           echo "::notice::Checking deployment status..."
-          curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -m json.tool
+          curl -s "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/$PROJECT" \
+            -H "Authorization: Bearer $TOKEN" | python3 -m json.tool
 
           echo "::notice::Domain configuration:"
-          curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT/domains" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | python3 -m json.tool
+          curl -s "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/$PROJECT/domains" \
+            -H "Authorization: Bearer $TOKEN" | python3 -m json.tool
