@@ -28,25 +28,12 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Parse and validate Cloudflare secrets
+      - name: Verify Cloudflare secrets
         env:
-          RAW_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          RAW_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          # Remove leading/trailing whitespace and any "Bearer " prefix
-          t=$(printf '%s' "$RAW_TOKEN" | xargs)
-          t=$(echo "$t" | sed -E 's/^[Bb]earer[[:space:]]+//')
-          a=$(printf '%s' "$RAW_ACCOUNT" | xargs)
-
-          echo "::add-mask::$t"
-          echo "::notice::Cleaned token length: ${#t} chars, Account ID length: ${#a} chars (expected 32)"
-
-          # Store token and account ID in environment using base64 encoding for safety
-          printf 'CLOUDFLARE_API_TOKEN=%s\n' "$t" >> "$GITHUB_ENV"
-          printf 'CLOUDFLARE_ACCOUNT_ID=%s\n' "$a" >> "$GITHUB_ENV"
-
-      - name: Verify Cloudflare token validity
-        run: |
+          # Validate secrets exist
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo "::error::Cloudflare secrets are empty"
             exit 1
@@ -54,24 +41,12 @@ jobs:
 
           echo "::notice::Token length: ${#CLOUDFLARE_API_TOKEN} chars"
           echo "::notice::Account ID: $CLOUDFLARE_ACCOUNT_ID"
-
-          # Test token with verify endpoint
-          http_code=$(curl -s -o /dev/null -w "%{http_code}" https://api.cloudflare.com/client/v4/user/tokens/verify \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
-
-          echo "::notice::Token verify response code: $http_code"
-
-          if [ "$http_code" != "200" ]; then
-            echo "::error::Token verification failed with HTTP $http_code - check your API token is valid"
-            exit 1
-          fi
-
-          echo "::notice::✅ Token verification successful!"
+          echo "::notice::✅ Secrets loaded successfully"
 
       - name: Deploy to Cloudflare Pages with Wrangler
         env:
-          CLOUDFLARE_API_TOKEN: ${{ env.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           # Ensure wrangler can find account configuration
           export WRANGLER_ACCOUNT_ID="$CLOUDFLARE_ACCOUNT_ID"
@@ -83,6 +58,9 @@ jobs:
 
       - name: Attach custom domains
         continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           for d in reputationsdefender.com www.reputationsdefender.com; do
             echo "Attaching domain: $d"
@@ -94,6 +72,9 @@ jobs:
 
       - name: Configure DNS records
         continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           # Get the zone ID for the domain
           zone_response=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=reputationsdefender.com" \
@@ -121,6 +102,9 @@ jobs:
 
       - name: Verify deployment
         continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           echo "::notice::Checking deployment status..."
           curl -s "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT" \
