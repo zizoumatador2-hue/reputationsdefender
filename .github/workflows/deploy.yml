@@ -30,72 +30,39 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         env:
-          WRANGLER_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           echo "::notice::Starting Cloudflare Pages deployment..."
 
-          if [ -z "$WRANGLER_API_TOKEN" ]; then
-            echo "::error::Cloudflare API token is missing"
+          # Verify credentials
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::Missing Cloudflare credentials"
             exit 1
           fi
 
           echo "::notice::Project: $PROJECT"
-          echo "::notice::Deploying from dist/ directory..."
+          echo "::notice::Building deployment manifest..."
 
-          npx --yes wrangler@latest pages deploy dist \
+          # Create a temporary directory for upload
+          UPLOAD_DIR=$(mktemp -d)
+          cp -r dist/* "$UPLOAD_DIR/"
+
+          # Get list of files to upload
+          FILE_LIST=$(find "$UPLOAD_DIR" -type f -print0 | xargs -0 -I {} bash -c 'echo "{}"' | sort)
+
+          echo "::notice::Files to deploy: $(echo "$FILE_LIST" | wc -l)"
+
+          # Use wrangler to deploy
+          echo "::notice::Deploying with Wrangler..."
+          npx --yes wrangler@latest pages deploy "$UPLOAD_DIR" \
             --project-name "$PROJECT" \
-            --branch main
+            --branch main || {
+            echo "::error::Wrangler deployment failed"
+            exit 1
+          }
 
-      - name: Attach custom domains
-        continue-on-error: true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          # Clean the token
-          TOKEN=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '\n\r')
-          ACCOUNT_ID=$(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | tr -d '\n\r')
-
-          for d in reputationsdefender.com www.reputationsdefender.com; do
-            echo "Attaching domain: $d"
-            curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/$PROJECT/domains" \
-              -H "Authorization: Bearer $TOKEN" \
-              -H "Content-Type: application/json" \
-              -d "{\"name\":\"$d\"}" | python3 -m json.tool
-          done
-
-      - name: Configure DNS records
-        continue-on-error: true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          # Clean the token
-          TOKEN=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '\n\r')
-
-          # Get the zone ID for the domain
-          zone_response=$(curl -s "https://api.cloudflare.com/client/v4/zones?name=reputationsdefender.com" \
-            -H "Authorization: Bearer $TOKEN")
-
-          zone_id=$(echo "$zone_response" | python3 -c 'import sys,json; r=json.load(sys.stdin).get("result",[]); print(r[0]["id"] if r else "")' 2>/dev/null)
-
-          if [ -z "$zone_id" ]; then
-            echo "::warning::Could not retrieve zone ID; DNS configuration skipped"
-            exit 0
-          fi
-
-          echo "::notice::Zone ID: $zone_id"
-
-          # Add CNAME records pointing to Pages
-          for name in @ www; do
-            record_name=$([ "$name" = "@" ] && echo "reputationsdefender.com" || echo "www.reputationsdefender.com")
-            echo "Adding CNAME record for $record_name → $PROJECT.pages.dev"
-
-            curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records" \
-              -H "Authorization: Bearer $TOKEN" \
-              -H "Content-Type: application/json" \
-              -d "{\"type\":\"CNAME\",\"name\":\"$record_name\",\"content\":\"$PROJECT.pages.dev\",\"proxied\":true}" | python3 -m json.tool
-          done
+          echo "::notice::✅ Deployment completed successfully"
 
       - name: Verify deployment
         continue-on-error: true
@@ -103,14 +70,10 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          # Clean the token
+          # Clean token
           TOKEN=$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '\n\r')
           ACCOUNT_ID=$(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | tr -d '\n\r')
 
-          echo "::notice::Checking deployment status..."
+          echo "::notice::Verifying deployment..."
           curl -s "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/$PROJECT" \
-            -H "Authorization: Bearer $TOKEN" | python3 -m json.tool
-
-          echo "::notice::Domain configuration:"
-          curl -s "https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/pages/projects/$PROJECT/domains" \
-            -H "Authorization: Bearer $TOKEN" | python3 -m json.tool
+            -H "Authorization: Bearer $TOKEN" | python3 -m json.tool || echo "Verification request failed (non-critical)"
