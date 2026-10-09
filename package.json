@@ -3,9 +3,13 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18.20.8"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "prebuild": "node scripts/fetch-images.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

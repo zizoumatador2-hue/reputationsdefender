@@ -1,6 +1,6 @@
 ---
 title: "How to Protect Your Personal Information Online: A Practical Guide"
-description: "Concrete steps for reducing your personal information exposure online — from account settings and data broker opt-outs to safer everyday habits."
+description: "Concrete steps to reduce your personal information exposure online, from account security and data broker opt-outs to safer everyday habits."
 pubDate: 2026-10-09
 modDate: 2026-10-09
 category: "personal-privacy"

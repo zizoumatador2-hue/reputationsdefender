@@ -1,6 +1,6 @@
 ---
 title: "How to Improve Google Search Results for Your Name"
-description: "A practical guide to building accurate, positive, well-ranked search results for your name — personal websites, profiles, and content strategy that actually works."
+description: "Build accurate, positive search results for your name with a personal site, strong profiles, and original content. A realistic, step-by-step plan."
 pubDate: 2026-10-09
 modDate: 2026-10-09
 category: "google-search"

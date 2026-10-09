@@ -1,6 +1,6 @@
 ---
 title: "How to Remove Personal Information From Google (Step-by-Step Guide)"
-description: "A practical, step-by-step guide to removing your phone number, address, and other personal details from Google Search, using Google's own tools and legitimate removal requests."
+description: "Step-by-step: remove your phone number, home address, and other personal details from Google Search using Results about you and Google's removal form."
 pubDate: 2026-10-09
 modDate: 2026-10-09
 category: "personal-information-removal"

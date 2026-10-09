@@ -1,12 +1,13 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const articles = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
   schema: z.object({
     title: z.string(),
-    description: z.string().max(160),
-    pubDate: z.date(),
-    modDate: z.date(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    modDate: z.coerce.date(),
     category: z.enum([
       'online-reputation',
       'google-search',
@@ -20,7 +21,8 @@ const articles = defineCollection({
     cluster: z.array(z.string()).default([]),
     keywords: z.array(z.string()).default([]),
     author: z.string().default('Christopher Kunz'),
-    readingTime: z.string().optional(),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
     featured: z.boolean().default(false)
   })
 });

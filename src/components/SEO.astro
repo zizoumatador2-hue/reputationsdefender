@@ -9,6 +9,7 @@ interface Props {
   noindex?: boolean;
   publishedTime?: string;
   modifiedTime?: string;
+  image?: string;
 }
 
 const {
@@ -18,11 +19,16 @@ const {
   ogType = 'website',
   noindex = false,
   publishedTime,
-  modifiedTime
+  modifiedTime,
+  image
 } = Astro.props;
 
 const canonicalURL = new URL(canonical, SITE.url).toString();
-const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+// Append the brand only when the result stays within ~60 characters,
+// so Google doesn't truncate the keyword-bearing part of the title.
+const branded = `${title} | ${SITE.name}`;
+const fullTitle = title.includes(SITE.name) || branded.length > 60 ? title : branded;
+const ogImage = new URL(image ?? '/images/og-default.jpg', SITE.url).toString();
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
@@ -34,13 +40,13 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:site_name" content={SITE.name} />
-<meta property="og:image" content={new URL('/images/og-default.jpg', SITE.url).toString()} />
+<meta property="og:image" content={ogImage} />
 <meta property="og:locale" content="en_US" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={new URL('/images/og-default.jpg', SITE.url).toString()} />
+<meta name="twitter:image" content={ogImage} />
 
 {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
