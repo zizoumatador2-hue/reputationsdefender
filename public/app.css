@@ -34,7 +34,7 @@
 .page-hero h1 { max-width: 22ch; }
 .page-hero-inner { max-width: none; }
 
-.home-hero { padding-block: 4rem 3.5rem; border-bottom: 1px solid var(--color-border); background: var(--color-bg-alt); }
+.home-hero { padding-block: 4rem 3.5rem; border-bottom: 1px solid var(--color-border); background: var(--color-bg-alt) url("/images/hero-bg.svg") no-repeat right center / cover; }
 .home-hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 3rem; align-items: center; }
 .home-hero h1 { font-size: clamp(2.1rem, 4.4vw, 3.1rem); max-width: 18ch; letter-spacing: -0.01em; }
 .hero-note { font-size: 0.92rem; color: var(--color-text-muted); margin-top: 1rem; }
