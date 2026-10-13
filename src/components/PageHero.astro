@@ -1,0 +1,18 @@
+---
+interface Action { label: string; href: string; track?: string }
+interface Props { eyebrow?: string; title: string; lead: string; primary?: Action; secondary?: Action }
+const { eyebrow, title, lead, primary, secondary } = Astro.props;
+---
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    <p class="lead">{lead}</p>
+    {(primary || secondary) && (
+      <div class="hero-actions">
+        {primary && <a class="btn btn-primary" href={primary.href} data-track={primary.track ?? primary.label}>{primary.label}</a>}
+        {secondary && <a class="btn btn-outline" href={secondary.href} data-track={secondary.track ?? secondary.label}>{secondary.label}</a>}
+      </div>
+    )}
+  </div>
+</section>

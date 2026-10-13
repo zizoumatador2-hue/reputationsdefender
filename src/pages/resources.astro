@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const articles = (await getCollection('articles')).sort((a, b) => b.data.modDate.getTime() - a.data.modDate.getTime());
+
+const groups: { label: string; href: string; category: string }[] = [
+  { label: 'Online reputation', href: '/personal-reputation/', category: 'online-reputation' },
+  { label: 'Google search results', href: '/reputation-management/', category: 'google-search' },
+  { label: 'Personal privacy and information removal', href: '/personal-reputation/', category: 'personal-information-removal' },
+  { label: 'Data brokers and people-search sites', href: '/personal-reputation/', category: 'data-brokers' },
+  { label: 'Business reputation and reviews', href: '/business-reputation/', category: 'business-reputation' },
+  { label: 'Online reviews', href: '/business-reputation/', category: 'online-reviews' },
+  { label: 'Personal branding', href: '/personal-reputation/', category: 'personal-branding' },
+  { label: 'Personal privacy', href: '/personal-reputation/', category: 'personal-privacy' }
+];
+---
+<BaseLayout
+  title="Reputation Management Resources and Guides"
+  description="Plain-English guides on online reputation management, Google search results, personal information removal, reviews, and monitoring for US readers."
+>
+  <PageHero
+    eyebrow="Resources"
+    title="Guides on Reputation Management and Search Results"
+    lead="Practical, US-focused guides on Google search results, personal information removal, reviews, and monitoring. Each guide explains what is possible, what is not, and what to do next."
+    primary={{ label: 'Get Your Free Reputation Scan', href: '/free-reputation-scan/' }}
+  />
+
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Resources', url: '/resources/' }]} />
+
+    <h2>Start Here</h2>
+    <div class="card-grid">
+      <a class="card info-card card-link" href="/reputation-management/"><h3>Reputation management services</h3><p>What the work includes, what it cannot guarantee, and how to evaluate a provider.</p></a>
+      <a class="card info-card card-link" href="/personal-reputation/"><h3>Personal reputation</h3><p>A self-audit you can start today, and the most common types of risk.</p></a>
+      <a class="card info-card card-link" href="/business-reputation/"><h3>Business reputation</h3><p>Google Business Profile, review responses, and brand search monitoring for small businesses.</p></a>
+    </div>
+
+    <h2 style="margin-top:3rem">All Guides</h2>
+    <p class="section-intro">{articles.length} guides, most recently updated first.</p>
+    <div class="card-grid two">
+      {articles.map((a) => (
+        <a class="card info-card card-link" href={`/privacy-guides/${a.id}/`}>
+          <h3>{a.data.title}</h3>
+          <p>{a.data.description}</p>
+          <span class="more">Read the guide →</span>
+        </a>
+      ))}
+    </div>
+
+    <p class="muted" style="margin-top:2rem">Guides are educational and do not replace individualized legal advice. See our <a href="/disclaimer/">disclaimer</a>.</p>
+  </div>
+</BaseLayout>

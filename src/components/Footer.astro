@@ -6,33 +6,33 @@ const year = new Date().getFullYear();
   <div class="container footer-grid">
     <div class="footer-brand">
       <a href="/" class="brand">
-        <img src="/images/logo.png" alt="" width="32" height="32" />
+        <img src="/images/logo.svg" alt="" width="32" height="32" />
         <span>{SITE.name}</span>
       </a>
       <p>{SITE.tagline}.</p>
-      <p class="muted">Educational content only — not legal advice.</p>
+      <p class="muted">Educational and informational content only. Not legal advice. Results vary and are not guaranteed.</p>
     </div>
     <div>
-      <h3>Company</h3>
+      <h2 class="footer-heading">Services</h2>
+      <ul>
+        {FOOTER_LINKS.services.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-heading">Company</h2>
       <ul>
         {FOOTER_LINKS.company.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
     </div>
     <div>
-      <h3>Topics</h3>
-      <ul>
-        {FOOTER_LINKS.topics.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-      </ul>
-    </div>
-    <div>
-      <h3>Legal</h3>
+      <h2 class="footer-heading">Legal</h2>
       <ul>
         {FOOTER_LINKS.legal.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
     </div>
   </div>
   <div class="container footer-bottom">
-    <p>&copy; {year} {SITE.name}. All rights reserved.</p>
+    <p>&copy; {year} {SITE.name}. All rights reserved. Contact: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></p>
   </div>
 </footer>
 
@@ -45,7 +45,7 @@ const year = new Date().getFullYear();
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr);
+    grid-template-columns: 1.6fr repeat(3, 1fr);
     gap: 2rem;
   }
   .footer-brand .brand {
@@ -57,9 +57,9 @@ const year = new Date().getFullYear();
     text-decoration: none;
     margin-bottom: 0.6rem;
   }
-  .footer-brand p { color: var(--color-text-muted); font-size: 0.92rem; max-width: 32ch; }
+  .footer-brand p { color: var(--color-text-muted); font-size: 0.92rem; max-width: 34ch; }
   .muted { font-size: 0.85rem !important; }
-  h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-text-muted); margin: 0 0 0.9rem; }
+  .footer-heading { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-text-muted); margin: 0 0 0.9rem; }
   ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
   ul a { color: var(--color-text); text-decoration: none; font-size: 0.94rem; }
   ul a:hover { color: var(--color-primary); }
@@ -70,7 +70,10 @@ const year = new Date().getFullYear();
     font-size: 0.85rem;
     color: var(--color-text-muted);
   }
-  @media (max-width: 760px) {
+  @media (max-width: 860px) {
     .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .footer-grid { grid-template-columns: 1fr; }
   }
 </style>

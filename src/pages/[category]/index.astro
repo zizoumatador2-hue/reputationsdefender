@@ -24,10 +24,6 @@ const categoryMeta: Record<string, { label: string; description: string }> = {
     label: 'Data Brokers & People-Search Sites',
     description: 'How data brokers compile and sell your information, and how to opt out of the major ones.'
   },
-  'business-reputation': {
-    label: 'Business Reputation',
-    description: 'Review management and search visibility guidance for small businesses and professionals.'
-  },
   'online-reviews': {
     label: 'Online Reviews',
     description: 'How to respond to negative reviews, generate genuine positive ones, and stay within platform rules.'
@@ -41,7 +37,7 @@ const categoryMeta: Record<string, { label: string; description: string }> = {
 export async function getStaticPaths() {
   return Object.keys({
     'online-reputation': 1, 'google-search': 1, 'personal-privacy': 1,
-    'personal-information-removal': 1, 'data-brokers': 1, 'business-reputation': 1,
+    'personal-information-removal': 1, 'data-brokers': 1,
     'online-reviews': 1, 'personal-branding': 1
   }).map((category) => ({ params: { category } }));
 }

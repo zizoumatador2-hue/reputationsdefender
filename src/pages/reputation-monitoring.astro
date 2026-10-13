@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqSection from '../components/FaqSection.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PricingCards from '../components/PricingCards.astro';
+
+const features = [
+  { title: 'Search result monitoring', text: 'Track what appears for your name, brand, and key phrases, and flag new or changed results.' },
+  { title: 'Brand mention monitoring', text: 'Watch for mentions of your business or name across the web, including news, directories, and forums.' },
+  { title: 'Review monitoring', text: 'See new and changed reviews on the platforms that matter to your practice, firm, or business.' },
+  { title: 'Reputation alerts', text: 'Receive a notice when something new needs your attention, so you are not checking manually.' },
+  { title: 'Reputation health reports', text: 'Summaries of score, visibility, and review presence over time, with plain-English explanations.' },
+  { title: 'Monthly reports', text: 'A recurring report with what changed, what you should act on, and what to watch next month.' }
+];
+
+const faqs = [
+  {
+    question: 'How often is my reputation monitored?',
+    answer: 'The plan details will state the schedule. Monitoring is designed to run on a recurring basis rather than as a one-time check, so new results are caught between reports.'
+  },
+  {
+    question: 'Will monitoring remove results for me?',
+    answer: 'No. Monitoring finds and reports changes. Any removal request or content change depends on the source and its policies, and it is never guaranteed.'
+  },
+  {
+    question: 'Can I start monitoring now?',
+    answer: 'Paid monitoring is being set up. Until online checkout opens, request a plan from our contact page and we will reply by email. You can also use free tools such as Google Alerts and Google’s Results about you in the meantime.'
+  },
+  {
+    question: 'What free tools can I use today?',
+    answer: 'Google Alerts sends email when new web content matches a search term. Results about you lets you review certain personal information in search and request removal where eligible. Our guide on how to monitor your name online explains a simple routine.'
+  }
+];
+---
+<BaseLayout
+  title="Reputation Monitoring for Search Results, Brands, and Reviews"
+  description="Reputation monitoring tracks search results, brand mentions, and reviews, with alerts and monthly reports. Learn what it covers and how to start."
+>
+  <PageHero
+    eyebrow="Reputation monitoring"
+    title="Know What Changes Before It Becomes a Problem"
+    lead="Online reputation monitoring watches search results, brand mentions, and reviews over time, so you learn about new information early and can respond calmly."
+    primary={{ label: 'Get Your Free Reputation Scan', href: '/free-reputation-scan/' }}
+    secondary={{ label: 'Request a Monitoring Plan', href: '/contact/?topic=consultation' }}
+  />
+
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Reputation Monitoring', url: '/reputation-monitoring/' }]} />
+    <h2>What Monitoring Covers</h2>
+    <p class="section-intro">
+      Monitoring is about consistency. A few minutes of review each month is more useful than a frantic search after something goes wrong. These are the parts of a monitoring plan.
+    </p>
+    <div class="card-grid">
+      {features.map((f) => (
+        <article class="card info-card">
+          <h3>{f.title}</h3>
+          <p>{f.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <section class="container section" aria-labelledby="how-monitoring">
+    <h2 id="how-monitoring">What a Monitoring Routine Looks Like</h2>
+    <div class="prose-wide">
+      <p>
+        Effective monitoring follows a simple cycle: <strong>check, decide, act, and record</strong>. Each cycle answers three questions. What changed? Is it accurate? What is the next step, and who owns it?
+      </p>
+      <ul>
+        <li><strong>Weekly:</strong> Scan alerts and new reviews, and respond to anything time-sensitive.</li>
+        <li><strong>Monthly:</strong> Review the search results for your name and brand, and check your profiles for accuracy.</li>
+        <li><strong>Quarterly:</strong> Check people-search sites and data broker listings, and recheck any open removal requests.</li>
+      </ul>
+      <p>
+        For a step-by-step version you can use today, read <a href="/privacy-guides/how-to-monitor-your-name-online/">how to monitor your name online</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="monitoring-plans">
+    <h2 id="monitoring-plans">Monitoring Plans</h2>
+    <p class="section-intro">Example plans for planning purposes. Paid plans are not available for online purchase yet.</p>
+    <PricingCards />
+  </section>
+
+  <FaqSection id="monitoring-faq" faqs={faqs} />
+
+  <CtaBand
+    title="Protect Your Reputation"
+    text="Start with a free preliminary scan, then choose whether you want ongoing monitoring."
+    label="Protect Your Reputation"
+    href="/free-reputation-scan/"
+  />
+</BaseLayout>

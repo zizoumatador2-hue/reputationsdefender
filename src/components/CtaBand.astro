@@ -1,0 +1,13 @@
+---
+interface Props { title: string; text: string; href?: string; label?: string }
+const { title, text, href = '/free-reputation-scan/', label = 'Get Your Free Reputation Scan' } = Astro.props;
+---
+<section class="cta-band" aria-labelledby="cta-band-heading">
+  <div class="container cta-inner">
+    <div>
+      <h2 id="cta-band-heading">{title}</h2>
+      <p>{text}</p>
+    </div>
+    <a class="btn btn-primary" href={href} data-track={`cta_band_${label}`}>{label}</a>
+  </div>
+</section>

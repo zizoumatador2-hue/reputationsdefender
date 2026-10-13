@@ -1,0 +1,18 @@
+---
+import SchemaOrg from './SchemaOrg.astro';
+interface Faq { question: string; answer: string }
+interface Props { title?: string; id?: string; faqs: Faq[] }
+const { title = 'Frequently Asked Questions', id = 'faq', faqs } = Astro.props;
+---
+<section class="container section" aria-labelledby={`${id}-heading`}>
+  <h2 id={`${id}-heading`}>{title}</h2>
+  <div class="faq-list">
+    {faqs.map((f) => (
+      <details class="faq-item">
+        <summary>{f.question}</summary>
+        <p>{f.answer}</p>
+      </details>
+    ))}
+  </div>
+  <SchemaOrg type="FAQPage" faqs={faqs} />
+</section>

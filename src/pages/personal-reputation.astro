@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqSection from '../components/FaqSection.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const faqs = [
+  {
+    question: 'How do I see what appears about me online?',
+    answer: 'Search your full name in a private browser window, then check image results, news, social profiles, and people-search sites. Repeat the search with your city or employer, since results change with context.'
+  },
+  {
+    question: 'What should I do about a people-search listing with my address?',
+    answer: 'Most people-search sites offer an opt-out process, which is usually free. Some US states also give residents a statutory right to request deletion of certain data. Our guide on removing information from people-search sites walks through the steps.'
+  },
+  {
+    question: 'What if the information is false or is being used to harass me?',
+    answer: 'Keep records, including screenshots with dates and URLs. For threats or harassment, contact local law enforcement. For defamation or other legal questions about your situation, speak with a licensed attorney in your state. We do not provide legal advice.'
+  },
+  {
+    question: 'I am job searching. Should I worry about what employers find?',
+    answer: 'Many employers search candidates online. Make sure your professional profiles are current and accurate, and remove or update outdated personal information where you can. A simple, consistent professional presence is usually more effective than trying to hide everything.'
+  }
+];
+---
+<BaseLayout
+  title="Personal Reputation Management for Professionals and Public Figures"
+  description="Personal reputation management for executives, professionals, entrepreneurs, job seekers, and personal brands. Understand what appears about you and identify the risks."
+>
+  <PageHero
+    eyebrow="Personal reputation"
+    title="Understand What Appears About You Online"
+    lead="Employers, clients, partners, and neighbors often search your name before they meet you. Personal reputation management helps you see what appears, separate accurate information from outdated or sensitive information, and decide what to address first."
+    primary={{ label: 'Get Your Free Reputation Scan', href: '/free-reputation-scan/' }}
+    secondary={{ label: 'Talk With Our Team', href: '/contact/?topic=personal' }}
+  />
+
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Personal Reputation', url: '/personal-reputation/' }]} />
+
+    <h2>Who This Is For</h2>
+    <ul class="check-list card-grid two">
+      <li class="card" style="padding:1rem 1rem 1rem 2.4rem">Executives and senior leaders</li>
+      <li class="card" style="padding:1rem 1rem 1rem 2.4rem">Professionals, including clinicians, attorneys, and consultants</li>
+      <li class="card" style="padding:1rem 1rem 1rem 2.4rem">Entrepreneurs and founders</li>
+      <li class="card" style="padding:1rem 1rem 1rem 2.4rem">Job seekers and career changers</li>
+      <li class="card" style="padding:1rem 1rem 1rem 2.4rem">Personal brands, creators, and speakers</li>
+      <li class="card" style="padding:1rem 1rem 1rem 2.4rem">Public-facing professionals such as agents, teachers, and local officials</li>
+    </ul>
+  </div>
+
+  <section class="container section" aria-labelledby="self-audit">
+    <h2 id="self-audit">A Simple Self-Audit You Can Do Today</h2>
+    <div class="prose-wide">
+      <ol>
+        <li><strong>Search your full name</strong> in a private window, and try variations with your city, employer, and profession.</li>
+        <li><strong>Check image results</strong> for photos that could be misattributed or shared without permission.</li>
+        <li><strong>Review your social profiles as a stranger would.</strong> Log out or use a private window, and check what is public.</li>
+        <li><strong>Check people-search and data broker sites</strong> for your home address, phone number, and relatives' names.</li>
+        <li><strong>Note what is outdated, inaccurate, or sensitive,</strong> and decide what to address first.</li>
+      </ol>
+      <p>
+        For a full walkthrough of exposed personal information, read <a href="/privacy-guides/how-to-remove-personal-information-from-google/">how to remove personal information from Google</a> and <a href="/privacy-guides/remove-information-from-people-search-sites/">how to remove information from people-search sites</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="risk-types">
+    <h2 id="risk-types">Common Types of Reputation Risk</h2>
+    <div class="card-grid">
+      <article class="card info-card"><h3>Sensitive personal data</h3><p>Home addresses, phone numbers, and family details listed on people-search sites.</p></article>
+      <article class="card info-card"><h3>Outdated coverage</h3><p>Old news, closed cases, or profiles that no longer reflect your current role.</p></article>
+      <article class="card info-card"><h3>Inconsistent profiles</h3><p>Different job titles, names, or photos across platforms that confuse searchers.</p></article>
+      <article class="card info-card"><h3>Impersonation</h3><p>Fake accounts or profiles using your name or photo. Report them to the platform.</p></article>
+    </div>
+  </section>
+
+  <FaqSection id="personal-faq" faqs={faqs} />
+
+  <CtaBand
+    title="Protect Your Reputation"
+    text="Start with a free preliminary scan of your name, then decide what to address first."
+    label="Get Your Free Reputation Scan"
+    href="/free-reputation-scan/"
+  />
+</BaseLayout>
