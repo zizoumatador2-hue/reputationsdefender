@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import TurnstileWidget from '../components/TurnstileWidget.astro';
+import { US_STATES } from '../lib/validation';
+---
+<BaseLayout
+  title="Free Reputation Scan: Preliminary Online Reputation Check"
+  description="Run a free preliminary reputation scan for your name or business. Get a sample report with a score, search visibility, review presence, and recommendations."
+>
+  <PageHero
+    eyebrow="Free preliminary assessment"
+    title="Get Your Free Reputation Scan"
+    lead="Enter your name or business and a few details. The scan provides a preliminary assessment based on publicly available information. Live search analysis is not connected yet, so the report you see now is a labeled sample."
+  />
+
+  <section class="container section" aria-labelledby="scan-form-heading">
+    <div class="scan-layout">
+      <div>
+        <div class="card scan-form-card">
+          <h2 id="scan-form-heading">Start your scan</h2>
+          <noscript><p class="form-status" data-kind="error">JavaScript is required to run the scan.</p></noscript>
+          <form id="scan-form" class="form" novalidate>
+            <fieldset class="field full">
+              <legend class="label">Is this scan for a person or a business?</legend>
+              <div class="radio-row">
+                <label class="check"><input type="radio" name="subjectType" value="person" checked /> Person</label>
+                <label class="check"><input type="radio" name="subjectType" value="business" /> Business</label>
+              </div>
+              <p class="field-error" data-error-for="subjectType" hidden></p>
+            </fieldset>
+
+            <div class="form-grid">
+              <div class="field full">
+                <label for="subject">Full name or business name</label>
+                <input id="subject" name="subject" type="text" autocomplete="name" maxlength="120" required aria-describedby="subject-hint subject-error" />
+                <p id="subject-hint" class="hint">Use the name people search for, such as "Jane A. Smith" or "Riverside Family Dental".</p>
+                <p id="subject-error" class="field-error" data-error-for="subject" hidden></p>
+              </div>
+
+              <div class="field full">
+                <label for="websiteUrl">Website (optional)</label>
+                <input id="websiteUrl" name="websiteUrl" type="text" inputmode="url" autocomplete="url" maxlength="255" placeholder="example.com" aria-describedby="website-error" />
+                <p class="hint">Your personal site, practice site, or business website.</p>
+                <p id="website-error" class="field-error" data-error-for="websiteUrl" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="city">City</label>
+                <input id="city" name="city" type="text" autocomplete="address-level2" maxlength="80" required aria-describedby="city-error" />
+                <p id="city-error" class="field-error" data-error-for="city" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="state">State</label>
+                <select id="state" name="state" autocomplete="address-level1" required aria-describedby="state-error">
+                  <option value="">Choose a state</option>
+                  {US_STATES.map((s) => <option value={s.code}>{s.name}</option>)}
+                </select>
+                <p id="state-error" class="field-error" data-error-for="state" hidden></p>
+              </div>
+
+              <div class="field full">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="email-hint email-error" />
+                <p id="email-hint" class="hint">We use this to send your report. We do not publish it.</p>
+                <p id="email-error" class="field-error" data-error-for="email" hidden></p>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label class="check" for="consent">
+                <input id="consent" name="consent" type="checkbox" value="on" aria-describedby="consent-error" />
+                <span>I understand this is a preliminary assessment based on publicly available information, not an official rating or legal advice.</span>
+              </label>
+              <p id="consent-error" class="field-error" data-error-for="consent" hidden></p>
+            </div>
+
+            <p class="form-privacy">
+              Please don't enter Social Security, bank, or card numbers, or other sensitive details. We only use what you enter to run the scan and send your report.
+            </p>
+
+            <!-- Honeypot: real visitors leave this empty. -->
+            <div class="hp" aria-hidden="true">
+              <label>Fax number <input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
+            </div>
+            <input type="hidden" name="startedAt" value="" />
+
+            <TurnstileWidget />
+
+            <p class="form-status" data-form-status role="alert" hidden></p>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Get My Free Scan</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="scan-results" class="scan-report-wrap" aria-live="polite" hidden></div>
+      </div>
+
+      <aside class="card scan-aside" aria-labelledby="scan-aside-heading">
+        <h2 id="scan-aside-heading">What the scan covers</h2>
+        <ul class="check-list">
+          <li>How prominently your name or business appears in search results</li>
+          <li>Review presence and visible ratings</li>
+          <li>Positive signals, such as complete profiles and favorable reviews</li>
+          <li>Potential risks, such as people-search listings and outdated content</li>
+          <li>Recommendations you can act on</li>
+        </ul>
+        <h3>What the scan does not do</h3>
+        <ul class="check-list">
+          <li>It does not remove or change any content on your behalf</li>
+          <li>It does not guarantee any score, ranking, or outcome</li>
+          <li>It is not legal advice</li>
+        </ul>
+        <p class="muted">Read our <a href="/disclaimer/">disclaimer</a> and <a href="/privacy-policy/">privacy policy</a> before you scan.</p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../scripts/scan';
+</script>
+
+<style>
+  .scan-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  .scan-aside { padding: 1.5rem; position: sticky; top: 5rem; }
+  .scan-aside h2 { font-size: 1.15rem; margin-top: 0; }
+  .scan-aside h3 { font-size: 1rem; margin-top: 1.5rem; }
+  .radio-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  legend.label { margin-bottom: 0.2rem; padding: 0; }
+  .scan-aside .check-list li { font-size: 0.95rem; }
+  @media (max-width: 960px) {
+    .scan-layout { grid-template-columns: 1fr; }
+    .scan-aside { position: static; }
+  }
+</style>

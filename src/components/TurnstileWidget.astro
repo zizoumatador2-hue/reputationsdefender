@@ -1,0 +1,11 @@
+---
+// Cloudflare Turnstile bot check. Renders nothing unless PUBLIC_TURNSTILE_SITE_KEY is set.
+// The server verifies the token with TURNSTILE_SECRET_KEY (see functions/api).
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+{siteKey && (
+  <>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <div class="cf-turnstile" data-sitekey={siteKey} data-theme="auto"></div>
+  </>
+)}

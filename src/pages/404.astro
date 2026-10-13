@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page Not Found" description="The page you are looking for is not here. Find a free reputation scan, guides, or pricing." noindex>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <p class="eyebrow">Error 404</p>
+      <h1>We couldn't find that page</h1>
+      <p class="lead">The link may be out of date, or the page may have moved. These pages are a good place to start.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/" data-track="404_home">Go to Home</a>
+        <a class="btn btn-outline" href="/free-reputation-scan/" data-track="404_scan">Get Your Free Reputation Scan</a>
+      </div>
+    </div>
+  </section>
+  <div class="container section">
+    <ul class="check-list">
+      <li><a href="/reputation-management/">Reputation management services</a></li>
+      <li><a href="/reputation-monitoring/">Reputation monitoring</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/resources/">Resources and guides</a></li>
+      <li><a href="/contact/">Contact us</a></li>
+    </ul>
+  </div>
+</BaseLayout>

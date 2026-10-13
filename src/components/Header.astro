@@ -8,18 +8,22 @@ import { SITE, NAV } from '../lib/site';
       <span>{SITE.name}</span>
     </a>
     <nav aria-label="Primary">
-      <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
-        <span class="visually-hidden">Menu</span>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
       <ul id="primary-nav" class="nav-list">
         {NAV.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
         ))}
       </ul>
     </nav>
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm header-cta" href="/free-reputation-scan/" data-track="header_free_scan">Get Free Scan</a>
+      <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
+        <span class="visually-hidden">Menu</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
   </div>
 </header>
+<a class="mobile-cta btn btn-primary" href="/free-reputation-scan/" data-track="mobile_bar_free_scan">Get Your Free Reputation Scan</a>
 
 <style>
   .site-header {
@@ -33,8 +37,9 @@ import { SITE, NAV } from '../lib/site';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: 0.9rem;
-    gap: 1rem;
+    padding-block: 0.8rem;
+    gap: 1.25rem;
+    position: relative;
   }
   .brand {
     display: inline-flex;
@@ -45,6 +50,9 @@ import { SITE, NAV } from '../lib/site';
     color: var(--color-text);
     text-decoration: none;
   }
+  .header-actions { display: flex; align-items: center; gap: 0.6rem; }
+  .btn-sm { min-height: 44px; padding: 0.5em 1em; font-size: 0.95rem; white-space: nowrap; }
+  .mobile-cta { display: none; }
   .nav-toggle {
     display: none;
     background: none;
@@ -55,24 +63,44 @@ import { SITE, NAV } from '../lib/site';
     align-items: center;
     justify-content: center;
     color: var(--color-text);
+    cursor: pointer;
   }
   .nav-list {
     display: flex;
-    gap: 1.4rem;
+    gap: 1.1rem;
     list-style: none;
     margin: 0;
     padding: 0;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
   .nav-list a {
     color: var(--color-text);
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.93rem;
+    white-space: nowrap;
   }
   .nav-list a:hover { color: var(--color-primary); }
+  .nav-list a[aria-current='page'] { color: var(--color-primary); text-decoration: underline; }
 
-  @media (max-width: 860px) {
+  @media (max-width: 640px) {
+    .header-cta { display: none; }
+    .brand { font-size: 1.05rem; }
+    .mobile-cta {
+      display: flex;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 60;
+      border-radius: 0;
+      min-height: 56px;
+      box-shadow: 0 -4px 14px rgba(16, 24, 40, 0.12);
+    }
+    :global(body) { padding-bottom: 56px; }
+  }
+
+  @media (max-width: 1080px) {
     .nav-toggle { display: inline-flex; }
     .nav-list {
       display: none;

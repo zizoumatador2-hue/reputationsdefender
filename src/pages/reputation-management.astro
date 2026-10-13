@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqSection from '../components/FaqSection.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const faqs = [
+  {
+    question: 'What do reputation management services usually include?',
+    answer: 'Typically a starting assessment, monitoring of search results and reviews, guidance on accurate profiles and content, review-response processes, and reporting. The exact scope varies by provider, so ask for it in writing.'
+  },
+  {
+    question: 'Can a reputation management company guarantee removal of a result?',
+    answer: 'No legitimate provider can guarantee that a specific page or search result will be removed. Removal depends on the source, its policies, and applicable law. Be cautious of any company that promises it.'
+  },
+  {
+    question: 'How long does reputation work take?',
+    answer: 'Some requests, such as Google removal for sensitive personal information, can resolve in days to weeks where they qualify. Building stronger accurate content and profiles usually takes several months of consistent work.'
+  },
+  {
+    question: 'Should I pay for reputation management or do it myself?',
+    answer: 'Many high-impact steps are free, including Google removal requests for sensitive information, data broker opt-outs, profile cleanup, and review responses. Paid help makes sense when you want ongoing monitoring, a second set of eyes, or help with a larger, complex situation.'
+  }
+];
+---
+<BaseLayout
+  title="Reputation Management Services: What They Do and How to Choose"
+  description="A clear guide to reputation management services for individuals and businesses: what they include, what they cannot guarantee, and how to evaluate a provider."
+>
+  <PageHero
+    eyebrow="Reputation management services"
+    title="Reputation Management Services, Explained Plainly"
+    lead="Reputation management services help individuals and businesses understand what appears when people search them, and respond with accurate, legitimate steps. Here is what to expect, what to avoid, and how to choose."
+    primary={{ label: 'Get Your Free Reputation Scan', href: '/free-reputation-scan/' }}
+    secondary={{ label: 'Explore Reputation Monitoring', href: '/reputation-monitoring/' }}
+  />
+
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Reputation Management', url: '/reputation-management/' }]} />
+
+    <div class="prose-wide">
+      <h2>What Is Online Reputation Management?</h2>
+      <p>
+        Online reputation management is the ongoing process of understanding what appears about a person or business online, deciding what needs attention, and taking legitimate steps to improve the picture over time. It covers search results, profiles, reviews, and brand mentions. It is not a one-time cleanup.
+      </p>
+
+      <h2>The Core Parts of the Work</h2>
+      <ul>
+        <li><strong>Assessment.</strong> Reviewing what appears for your name or brand, including outdated, inaccurate, or sensitive information.</li>
+        <li><strong>Monitoring.</strong> Checking search results, review sites, and brand mentions on a schedule, so changes are caught early. See <a href="/reputation-monitoring/">reputation monitoring</a>.</li>
+        <li><strong>Removal requests where a policy applies.</strong> Google and some data brokers accept requests for specific categories of sensitive information. Eligibility varies, and approval is never guaranteed.</li>
+        <li><strong>Profile and content work.</strong> Claiming and completing profiles you control, and publishing accurate content that gives searchers better information.</li>
+        <li><strong>Review management.</strong> Responding professionally to reviews, encouraging genuine customers to share feedback, and reporting reviews that break platform rules.</li>
+        <li><strong>Reporting.</strong> Explaining what changed, what did not, and what to do next.</li>
+      </ul>
+
+      <h2>Personal Reputation Management</h2>
+      <p>
+        <strong>Personal reputation management</strong> serves individuals, including executives, professionals, entrepreneurs, job seekers, and public-facing people. The most common issues are people-search listings with home addresses or phone numbers, outdated news coverage, and inconsistent professional profiles. Our <a href="/personal-reputation/">personal reputation</a> page explains a practical self-audit you can start today.
+      </p>
+
+      <h2>Business Reputation Management</h2>
+      <p>
+        <strong>Business reputation management</strong> focuses on reviews, local search, and brand searches. For a small business, a clinic, a law firm, or a real estate team, the work often starts with a complete Google Business Profile, a consistent review-response process, and a regular look at how the business name appears. Our <a href="/business-reputation/">business reputation</a> page covers the details.
+      </p>
+
+      <h2>What Reputation Management Cannot Do</h2>
+      <p>No honest provider can do the following:</p>
+      <ul>
+        <li>Guarantee that a specific result will disappear from Google or any other search engine.</li>
+        <li>Guarantee a specific ranking position or timeline.</li>
+        <li>Remove factual, legally published content simply because it is unflattering.</li>
+        <li>Create fake reviews, fake profiles, or paid testimonials. These violate platform rules and can create legal exposure.</li>
+      </ul>
+      <p>
+        If a result is inaccurate or unlawful, the most effective path is usually to address the source directly, with documentation. Our guide on <a href="/privacy-guides/how-to-deal-with-negative-search-results/">how to deal with negative search results</a> explains the realistic options.
+      </p>
+
+      <h2>How to Evaluate a Reputation Management Company</h2>
+      <p>
+        Many people searching for the <strong>best reputation management company</strong> want a short list. A short list does not replace due diligence, but these questions will separate most credible providers from the rest:
+      </p>
+      <ol>
+        <li>Will you describe the scope and deliverables in writing before I pay?</li>
+        <li>What will you do in the first 30 days, and how will I see it?</li>
+        <li>Do you guarantee rankings or removals? (If yes, walk away.)</li>
+        <li>How do you handle reviews, and will you ever post fake ones?</li>
+        <li>How do you handle my personal information, and what do you need from me?</li>
+        <li>What does ongoing monitoring cost, and how is it reported?</li>
+      </ol>
+
+      <h2>Red Flags to Avoid</h2>
+      <ul>
+        <li>Guaranteed removal of all negative results</li>
+        <li>Pressure to pay before any written scope</li>
+        <li>Requests for your Social Security, bank, or card numbers as part of an assessment</li>
+        <li>Offers to post or buy reviews</li>
+        <li>Vague pricing with no written deliverables</li>
+      </ul>
+
+      <h2>Where ReputationsDefender Fits</h2>
+      <p>
+        ReputationsDefender starts with a <a href="/free-reputation-scan/">free preliminary scan</a> and provides guidance you can use yourself. Paid plans will add monitoring, alerts, and monthly reports. Live analysis is still being connected, so the current scan shows a labeled sample report. See <a href="/pricing/">pricing</a> for example plans. Prices are not available for online purchase yet.
+      </p>
+    </div>
+
+  </div>
+
+  <FaqSection id="rm-faq" title="Reputation Management Questions" faqs={faqs} />
+
+  <CtaBand
+    title="Protect Your Reputation"
+    text="Start with a free preliminary scan. Then decide whether you need a plan, a consultation, or just a clear next step."
+    label="Protect Your Reputation"
+    href="/free-reputation-scan/"
+  />
+</BaseLayout>
+
+<style>
+  .prose-wide { max-width: 72ch; }
+  .section :global(.faq-list) { margin-top: 1.5rem; }
+</style>

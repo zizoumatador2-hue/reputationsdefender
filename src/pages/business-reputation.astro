@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqSection from '../components/FaqSection.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const faqs = [
+  {
+    question: 'Can we remove a negative review about our business?',
+    answer: 'Generally no, if the review describes a genuine experience and does not break the platform’s rules. You can respond publicly and professionally, and report reviews that are fake, abusive, or violate policy.'
+  },
+  {
+    question: 'Is it legal to ask customers for reviews?',
+    answer: 'Asking satisfied customers to share honest feedback is common practice. Offering incentives in exchange for reviews, writing reviews yourself, or buying them is not allowed on most platforms and can violate FTC guidance on endorsements. Check each platform’s rules.'
+  },
+  {
+    question: 'What is a Google Business Profile and why does it matter?',
+    answer: 'It is the listing Google shows for your business in local search and Maps. A complete, accurate profile with current hours, categories, photos, and a steady review-response process supports how your business appears to customers.'
+  },
+  {
+    question: 'How does competitor comparison work?',
+    answer: 'Competitor monitoring, available on higher-tier plans, compares how your brand and named competitors appear in search, reviews, and mentions. It is informational and does not change any listing on its own.'
+  }
+];
+---
+<BaseLayout
+  title="Business Reputation Management for Reviews and Brand Search"
+  description="Business reputation management for small businesses, clinics, law firms, and agencies: review monitoring, brand search tracking, customer feedback insights, and reports."
+>
+  <PageHero
+    eyebrow="Business reputation"
+    title="Protect Your Business Reputation"
+    lead="Customers, patients, and clients check reviews and search results before they call. Business reputation management helps you see what they see, respond well, and build a clear record of customer feedback."
+    primary={{ label: 'Get Your Free Reputation Report', href: '/free-reputation-scan/?type=business', track: 'business_free_report' }}
+    secondary={{ label: 'Protect Your Business Reputation', href: '/contact/?topic=business', track: 'business_protect' }}
+  />
+
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Business Reputation', url: '/business-reputation/' }]} />
+
+    <div class="card-grid">
+      <article class="card info-card">
+        <h3>Online review monitoring</h3>
+        <p>See new and changed reviews across the platforms your customers use, so you can respond quickly.</p>
+      </article>
+      <article class="card info-card">
+        <h3>Brand search monitoring</h3>
+        <p>Track how your business name and key services appear in search, including profiles, directories, and news.</p>
+      </article>
+      <article class="card info-card">
+        <h3>Customer feedback insights</h3>
+        <p>Find recurring themes in reviews, such as wait times, pricing, or staff communication, and see which ones you can act on.</p>
+      </article>
+      <article class="card info-card">
+        <h3>Reputation reports</h3>
+        <p>Plain-English reports with score, visibility, review presence, and the next three actions to take.</p>
+      </article>
+      <article class="card info-card">
+        <h3>Competitor comparison</h3>
+        <p>On higher-tier plans, compare how your brand and named competitors appear in search and reviews.</p>
+      </article>
+      <article class="card info-card">
+        <h3>Reputation improvement strategy</h3>
+        <p>A prioritized plan: profile accuracy, review responses, accurate content, and monitoring cadence.</p>
+      </article>
+    </div>
+  </div>
+
+  <section class="container section" aria-labelledby="biz-practice">
+    <h2 id="biz-practice">A Practical Process for Small Businesses</h2>
+    <div class="prose-wide">
+      <ol>
+        <li><strong>Claim and complete your profiles.</strong> Start with your Google Business Profile, then major directories. Use the same business name, address, and phone number everywhere.</li>
+        <li><strong>Set a review-response standard.</strong> Respond to every review within a few business days. Thank people for positive feedback, address specifics in negative feedback, and never argue in public.</li>
+        <li><strong>Ask genuine customers for feedback.</strong> Make it easy with a link or QR code, and never offer incentives in exchange for reviews.</li>
+        <li><strong>Review what customers say.</strong> Look for repeated themes. They are often the most useful part of your reputation work.</li>
+        <li><strong>Monitor brand searches monthly.</strong> Check your business name and owner name, and flag any inaccurate listings or impersonation for correction.</li>
+      </ol>
+      <p>
+        Local search is often the most important channel for a service business. For a deeper guide, read <a href="/privacy-guides/online-reputation-management-for-businesses/">online reputation management for businesses</a> and our guide to <a href="/online-reviews/">managing online reviews</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="biz-who">
+    <h2 id="biz-who">Who This Is For</h2>
+    <ul class="check-list">
+      <li>Small business owners and local businesses with a storefront or service area</li>
+      <li>Doctors, clinics, and other healthcare practices that need careful, compliant responses to reviews</li>
+      <li>Lawyers and law firms that need accurate profiles and a responsible approach to client feedback</li>
+      <li>Real estate agents and brokerages that depend on local search and referrals</li>
+      <li>Agencies that manage reputation for multiple clients</li>
+    </ul>
+  </section>
+
+  <FaqSection id="biz-faq" faqs={faqs} />
+
+  <CtaBand
+    title="Get Your Free Reputation Report"
+    text="Run a preliminary scan for your business name. The current build shows a labeled sample report while live analysis is being connected."
+    label="Get Your Free Reputation Report"
+    href="/free-reputation-scan/?type=business"
+  />
+</BaseLayout>

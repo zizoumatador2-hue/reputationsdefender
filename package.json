@@ -12,7 +12,9 @@
     "prebuild": "node scripts/fetch-images.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "node scripts/check-site.mjs",
+    "validate": "npm run build && npm run check"
   },
   "dependencies": {
     "astro": "^5.1.0",

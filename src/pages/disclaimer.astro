@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../lib/site';
+const lastUpdated = 'October 13, 2026';
+---
+<BaseLayout title="Disclaimer" description={`Important limits on the information, scans, scores, and services provided by ${SITE.name}.`}>
+  <div class="container section narrow prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Disclaimer', url: '/disclaimer/' }]} />
+    <h1>Disclaimer</h1>
+    <p>Last updated: {lastUpdated}</p>
+
+    <h2>Informational Only</h2>
+    <p>{SITE.name} provides general information and tools to help people understand their online presence. Content on this site and the output of any scan are informational. They are not legal, financial, or professional advice.</p>
+
+    <h2>Results Vary</h2>
+    <p>Search results, reviews, and online content change constantly. Outcomes depend on the source, its policies, applicable law, and many factors outside our control. Results you experience may differ from examples on this site.</p>
+
+    <h2>No Guarantee of Removal or Ranking</h2>
+    <p>We do not guarantee the removal of any search result, web page, review, or listing. We do not guarantee any ranking position, search visibility, or timeline. Search engines and platforms make their own decisions under their own policies.</p>
+
+    <h2>No Guarantee of a Specific Score</h2>
+    <p>The reputation score is an informational assessment. It is not an official rating and does not guarantee any result. Scores may change as information changes.</p>
+
+    <h2>Based on Available Information</h2>
+    <p>Assessments are based only on information that is publicly available and that we can access. We do not access private accounts, and we do not know everything that appears about you or your business. Live search and review analysis may not be connected in every version of this service. Sample reports are labeled as sample data.</p>
+
+    <h2>Sample Data</h2>
+    <p>Dashboards and reports shown on this site as examples are illustrative. Scores, metrics, and findings labeled as sample do not describe any real person or business.</p>
+
+    <h2>Not Legal Advice</h2>
+    <p>Information about defamation, privacy laws, data broker rights, or removal requests is general in nature. For advice about your specific situation, consult a licensed attorney in your state.</p>
+
+    <h2>Sensitive Information</h2>
+    <p>Do not send us highly sensitive personal information, including Social Security, bank, or card numbers. Our forms are not designed to receive it.</p>
+
+    <h2>Third-Party Links</h2>
+    <p>We link to third-party websites for convenience. We do not control them and are not responsible for their content or practices.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this disclaimer can be sent to <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 760px; margin-inline: auto; }
+</style>
