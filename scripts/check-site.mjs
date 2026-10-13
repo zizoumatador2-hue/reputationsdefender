@@ -60,6 +60,13 @@ for (const file of pages) {
     const file2 = join(DIST, src.split('?')[0]);
     check(existsSync(file2) && statSync(file2).size > 0, `image ${src} is missing or empty`);
   }
+  // Heading levels must not skip (h1 → h2 → h3, no gaps).
+  let lastLevel = 0;
+  for (const m of html.matchAll(/<h([1-6])[\s>]/g)) {
+    const level = Number(m[1]);
+    check(lastLevel === 0 || level <= lastLevel + 1, `heading level skips from h${lastLevel} to h${level}`);
+    lastLevel = level;
+  }
   // Every page with a rendered heading should also carry some alt text on images.
   check(!/<img(?![^>]*\balt=)[^>]*>/.test(html), 'an <img> is missing an alt attribute');
 }

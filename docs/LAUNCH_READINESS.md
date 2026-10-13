@@ -69,6 +69,8 @@ npx wrangler@3 pages dev dist --port 8788   # serves dist/ plus /api/* functions
 
 ## 5. Deployment (Cloudflare Pages)
 
+**Status:** not deployed. This environment has no Cloudflare API token or account ID, so the `wrangler pages deploy` step has not been run. Steps 1–5 below are still required.
+
 1. Create the Pages project named `reputationsdefender` (or match `PROJECT` in `.github/workflows/deploy.yml`).
 2. Add the variables from section 3.
 3. Deploy with `wrangler pages deploy dist --project-name reputationsdefender`. Wrangler looks for `functions/` at the project root. This was verified with `wrangler pages dev`, not with a production deploy, so **confirm after the first deploy** that `POST /api/scan` returns JSON rather than the HTML page.
