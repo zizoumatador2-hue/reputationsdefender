@@ -63,7 +63,8 @@ No dollar figures are given because no usage data exists yet. Estimating them no
 
 Classification: C0 immediate financial or abuse exposure; C1 high recurring waste; C2 moderate opportunity; C3 minor.
 
-**L1 (C0, abuse): unthrottled submissions can trigger webhook spend.**
+**L1 (C0, abuse): unthrottled submissions can trigger webhook spend. Mitigated in code.**
+- Status: `forwardLead` now refuses to forward unless `TURNSTILE_SECRET_KEY` is set. Verified: without Turnstile, 0 webhook calls; with Turnstile, 1 call per accepted submission.
 - Evidence: `functions/api/scan.ts` and `functions/api/contact.ts` forward every request that passes validation. The honeypot and timing checks are bypassed by any client that sends a valid body after 1.5 seconds.
 - Turnstile is enforced only if `TURNSTILE_SECRET_KEY` is set. Without it, verification is skipped (`src/lib/server.ts`, `verifyTurnstile`).
 - Impact: a script can send thousands of accepted submissions, each costing a webhook task.

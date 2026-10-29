@@ -62,14 +62,16 @@ export async function verifyTurnstile(
 
 /**
  * Sends a lead to LEAD_WEBHOOK_URL (a CRM, Zapier/Make, or your own endpoint).
- * Returns 'not_configured' when the variable is missing; throws when delivery fails.
+ * Returns 'not_configured' when the webhook is missing, or when Turnstile is not
+ * configured: without a bot check, any script could trigger paid webhook tasks.
+ * Throws when delivery fails.
  */
 export async function forwardLead(
   env: Env,
   payload: Record<string, unknown>
 ): Promise<'sent' | 'not_configured'> {
   const url = env.LEAD_WEBHOOK_URL;
-  if (!url) return 'not_configured';
+  if (!url || !env.TURNSTILE_SECRET_KEY) return 'not_configured';
   const headers: Record<string, string> = { 'content-type': 'application/json' };
   if (env.LEAD_WEBHOOK_SECRET) headers.authorization = `Bearer ${env.LEAD_WEBHOOK_SECRET}`;
   const res = await fetch(url, { method: 'POST', headers, body: JSON.stringify(payload) });
