@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ReputationsDefender">
+  <rect width="64" height="64" rx="14" fill="#0b3d62"/>
+  <path d="M32 12 L48 18 V31 C48 42 41.5 49.5 32 53 C22.5 49.5 16 42 16 31 V18 Z" fill="none" stroke="#35c2a8" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M25 32.5 L30.2 37.6 L40 27" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
