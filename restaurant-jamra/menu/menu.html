@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JAMRA — Menu · جمرة — القائمة</title>
+<meta name="description" content="JAMRA menu: charcoal grill, mezze, manakish, desserts and drinks. Prices in AED.">
+<style>
+@font-face { font-family: "Cormorant"; src: url("fonts/cormorant-garamond-latin-400-normal.woff") format("woff"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Cormorant"; src: url("fonts/cormorant-garamond-latin-500-normal.woff") format("woff"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Cormorant"; src: url("fonts/cormorant-garamond-latin-600-normal.woff") format("woff"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Amiri"; src: url("fonts/amiri-arabic-400-normal.woff") format("woff"); font-weight: 400; font-display: swap; unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF; }
+@font-face { font-family: "Amiri"; src: url("fonts/amiri-arabic-700-normal.woff") format("woff"); font-weight: 700; font-display: swap; unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF; }
+
+:root {
+  --ink: #1E1B18;
+  --bone: #F3ECE0;
+  --paper: #EAE0CF;
+  --ember: #B4462A;
+  --muted: #6B6259;
+  --rule: rgba(30, 27, 24, .16);
+  --gutter: 20px;
+  --serif: "Cormorant", "Cormorant Garamond", Georgia, serif;
+  --arabic: "Amiri", "Noto Naskh Arabic", "Geeza Pro", serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; overflow-x: hidden; background: var(--bone); color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
+[lang="ar"] { font-family: var(--arabic); }
+.num { font-variant-numeric: lining-nums tabular-nums; font-weight: 600; }
+
+.masthead { background: var(--ink); color: var(--bone); padding: 44px var(--gutter) 40px; text-align: center; }
+.masthead img { width: min(260px, 62vw); margin: 0 auto; }
+.masthead .tag { margin: 22px 0 0; font-size: 15px; letter-spacing: .18em; text-transform: uppercase; color: #CFC4B2; }
+.masthead .tag-ar { margin: 4px 0 0; font-family: var(--arabic); font-size: 18px; color: #CFC4B2; }
+.currency { margin: 18px auto 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 10px; max-width: 100%; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; border: 1px solid rgba(243,236,224,.35); padding: 8px 16px; border-radius: 18px; text-align: center; line-height: 1.5; }
+.currency span[lang="ar"] { font-family: var(--arabic); letter-spacing: 0; text-transform: none; font-size: 15px; }
+
+.jump { position: sticky; top: 0; z-index: 5; background: var(--bone); border-bottom: 1px solid var(--rule); }
+.jump ul { list-style: none; margin: 0; padding: 0 var(--gutter); display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; max-width: 880px; margin-inline: auto; }
+.jump ul::-webkit-scrollbar { display: none; }
+.jump a { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 48px; padding: 8px 12px; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; }
+.jump a:hover, .jump a:focus-visible { border-bottom-color: var(--ember); }
+.nav-en { font-size: 15px; font-weight: 600; letter-spacing: .02em; }
+.nav-ar { font-family: var(--arabic); font-size: 14px; color: var(--muted); line-height: 1.2; }
+
+main { max-width: 880px; margin: 0 auto; padding: 8px var(--gutter) 64px; }
+.cat { padding: 40px 0 8px; scroll-margin-top: 64px; }
+.cat-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; padding-bottom: 14px; border-bottom: 1px solid var(--ink); }
+.cat-en { margin: 0; font-size: clamp(34px, 7vw, 46px); font-weight: 500; line-height: 1.05; letter-spacing: .005em; }
+.cat-ar { margin: 0; font-family: var(--arabic); font-size: clamp(22px, 4.5vw, 28px); color: var(--ember); line-height: 1.6; }
+
+.items { list-style: none; margin: 0; padding: 0; }
+.item { padding: 18px 0; border-bottom: 1px solid var(--rule); break-inside: avoid; }
+.item-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.names { min-width: 0; flex: 1 1 auto; }
+.name-en { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.2; }
+.name-ar { margin: 2px 0 0; font-family: var(--arabic); font-size: 18px; color: var(--ember); line-height: 1.7; width: fit-content; text-align: start; }
+.price { flex: 0 0 auto; font-size: 20px; text-align: end; white-space: nowrap; padding-top: 1px; }
+.price .num { font-size: 20px; }
+.cur { font-size: 12px; letter-spacing: .08em; color: var(--muted); margin-inline-end: 4px; font-weight: 600; }
+.desc-en { margin: 6px 0 0; color: var(--ink); opacity: .82; font-size: 16px; line-height: 1.45; }
+.desc-ar { margin: 2px 0 0; font-family: var(--arabic); color: var(--muted); font-size: 15px; line-height: 1.9; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.opt { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--ink); border-radius: 999px; padding: 6px 14px; min-height: 40px; font-size: 15px; }
+.opt-l span[lang="ar"] { font-family: var(--arabic); font-size: 14px; color: var(--muted); margin-inline-start: 4px; }
+.opt .num { font-size: 16px; }
+
+footer { background: var(--ink); color: var(--bone); padding: 40px var(--gutter) 48px; text-align: center; }
+footer img { width: min(180px, 50vw); margin: 0 auto; }
+footer p { margin: 16px 0 0; font-size: 15px; color: #CFC4B2; }
+footer p[lang="ar"] { font-family: var(--arabic); margin-top: 4px; }
+
+@media (min-width: 720px) {
+  .item-head { align-items: baseline; }
+}
+
+@page { size: A4; margin: 0; }
+@media print {
+  .jump { display: none; }
+  main { padding: 0 12mm 0; } .masthead, footer { margin: 0; }
+  .masthead { padding: 28px 12mm; }
+  .cat { padding-top: 24px; break-inside: auto; }
+  .cat-head { break-after: avoid; }
+  body { font-size: 15px; }
+  .name-en { font-size: 17px; } .price, .price .num { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <img src="../brand/jamra-logo-reversed.svg" width="260" height="170" alt="JAMRA — جمرة">
+  <p class="tag">Charcoal grill and mezze</p>
+  <p class="tag-ar" lang="ar">مشاوي ومقبلات على الفحم</p>
+  <p class="currency">All prices in UAE dirhams (AED)<span lang="ar">جميع الأسعار بالدرهم الإماراتي</span></p>
+</header>
+<nav class="jump" aria-label="Menu categories">
+  <ul><li><a href="#mezze"><span class="nav-en">Mezze</span><span class="nav-ar" lang="ar">المقبلات</span></a></li><li><a href="#grill"><span class="nav-en">From the Charcoal</span><span class="nav-ar" lang="ar">من الفحم</span></a></li><li><a href="#mains"><span class="nav-en">Mains</span><span class="nav-ar" lang="ar">الأطباق الرئيسية</span></a></li><li><a href="#manakish"><span class="nav-en">Manakish</span><span class="nav-ar" lang="ar">المناقيش</span></a></li><li><a href="#desserts"><span class="nav-en">Desserts</span><span class="nav-ar" lang="ar">الحلويات</span></a></li><li><a href="#drinks"><span class="nav-en">Drinks</span><span class="nav-ar" lang="ar">المشروبات</span></a></li><li><a href="#addons"><span class="nav-en">Add-ons</span><span class="nav-ar" lang="ar">الإضافات</span></a></li></ul>
+</nav>
+<main>
+    <section class="cat" id="mezze" aria-labelledby="mezze-title">
+      <header class="cat-head">
+        <h2 id="mezze-title" class="cat-en">Mezze</h2>
+        <p class="cat-ar" lang="ar" dir="rtl">المقبلات</p>
+      </header>
+      <ul class="items">
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Hummus Ember</h3>
+              <p class="name-ar" lang="ar" dir="rtl">حمص الجمرة</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>35</span></div>
+          </div>
+          <p class="desc-en">Chickpea, tahini, lemon, charred-onion oil</p>
+          <p class="desc-ar" lang="ar" dir="rtl">حمص بالطحينة والليمون وزيت البصل المحروق</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Moutabal</h3>
+              <p class="name-ar" lang="ar" dir="rtl">متبل</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>38</span></div>
+          </div>
+          <p class="desc-en">Smoked aubergine, tahini, pomegranate molasses</p>
+          <p class="desc-ar" lang="ar" dir="rtl">باذنجان مدخن بالطحينة ودبس الرمان</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Muhammara</h3>
+              <p class="name-ar" lang="ar" dir="rtl">المحمّرة</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>40</span></div>
+          </div>
+          <p class="desc-en">Roasted red pepper, walnut, pomegranate molasses, cumin</p>
+          <p class="desc-ar" lang="ar" dir="rtl">فلفل أحمر مشوي مع الجوز ودبس الرمان والكمون</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Vine Leaves</h3>
+              <p class="name-ar" lang="ar" dir="rtl">ورق عنب</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>42</span></div>
+          </div>
+          <p class="desc-en">Rice, parsley, mint, tomato, lemon</p>
+          <p class="desc-ar" lang="ar" dir="rtl">أرز وبقدونس ونعناع وطماطم وليمون</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Fattoush</h3>
+              <p class="name-ar" lang="ar" dir="rtl">فتوش</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>36</span></div>
+          </div>
+          <p class="desc-en">Seasonal greens, sumac, toasted bread, pomegranate</p>
+          <p class="desc-ar" lang="ar" dir="rtl">خضار موسمية وسماق وخبز محمّص ورمان</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Kibbeh Halab</h3>
+              <p class="name-ar" lang="ar" dir="rtl">كبة حلب</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>48</span></div>
+          </div>
+          <p class="desc-en">Baked bulgur shell, spiced lamb, pine nuts</p>
+          <p class="desc-ar" lang="ar" dir="rtl">قشرة برغل مخبوزة بلحم ضأن متبل وصنوبر</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Charcoal Halloumi</h3>
+              <p class="name-ar" lang="ar" dir="rtl">حلوم على الفحم</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>52</span></div>
+          </div>
+          <p class="desc-en">Grilled halloumi, thyme honey, toasted sesame</p>
+          <p class="desc-ar" lang="ar" dir="rtl">حلوم مشوي بعسل الزعتر والسمسم المحمّص</p>
+          
+        </li></ul>
+    </section>
+    <section class="cat" id="grill" aria-labelledby="grill-title">
+      <header class="cat-head">
+        <h2 id="grill-title" class="cat-en">From the Charcoal</h2>
+        <p class="cat-ar" lang="ar" dir="rtl">من الفحم</p>
+      </header>
+      <ul class="items">
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Lamb Chops</h3>
+              <p class="name-ar" lang="ar" dir="rtl">ريش غنم</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>118</span></div>
+          </div>
+          <p class="desc-en">Four chops, garlic, thyme, sumac</p>
+          <p class="desc-ar" lang="ar" dir="rtl">أربع قطع ريش بالثوم والزعتر والسماق</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Chicken Shish Taouk</h3>
+              <p class="name-ar" lang="ar" dir="rtl">شيش طاووق</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>72</span></div>
+          </div>
+          <p class="desc-en">Marinated chicken breast, garlic toum, grilled tomato</p>
+          <p class="desc-ar" lang="ar" dir="rtl">صدر دجاج متبل مع الثومية وطماطم مشوية</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Beef and Lamb Kafta</h3>
+              <p class="name-ar" lang="ar" dir="rtl">كفتة لحم</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>75</span></div>
+          </div>
+          <p class="desc-en">Minced beef and lamb, parsley, onion, sumac</p>
+          <p class="desc-ar" lang="ar" dir="rtl">لحم بقري وضأن مفروم مع البقدونس والبصل والسماق</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Grilled Prawns</h3>
+              <p class="name-ar" lang="ar" dir="rtl">روبيان مشوي</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>98</span></div>
+          </div>
+          <p class="desc-en">Garlic butter, lemon, chilli flakes</p>
+          <p class="desc-ar" lang="ar" dir="rtl">زبدة بالثوم والليمون ورقائق الفلفل الحار</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Mixed Grill for Two</h3>
+              <p class="name-ar" lang="ar" dir="rtl">مشاوي مشكّلة لشخصين</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>210</span></div>
+          </div>
+          <p class="desc-en">Shish taouk, kafta, lamb chops, grilled vegetables</p>
+          <p class="desc-ar" lang="ar" dir="rtl">شيش طاووق وكفتة وريش غنم وخضار مشوية</p>
+          
+        </li></ul>
+    </section>
+    <section class="cat" id="mains" aria-labelledby="mains-title">
+      <header class="cat-head">
+        <h2 id="mains-title" class="cat-en">Mains</h2>
+        <p class="cat-ar" lang="ar" dir="rtl">الأطباق الرئيسية</p>
+      </header>
+      <ul class="items">
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Lamb Mandi</h3>
+              <p class="name-ar" lang="ar" dir="rtl">مندي لحم</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>135</span></div>
+          </div>
+          <p class="desc-en">Slow-cooked lamb shoulder, saffron basmati, dried lime</p>
+          <p class="desc-ar" lang="ar" dir="rtl">كتف ضأن مطهو ببطء مع أرز بسمتي بالزعفران والليمون المجفف</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Musakhan</h3>
+              <p class="name-ar" lang="ar" dir="rtl">مسخن</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>88</span></div>
+          </div>
+          <p class="desc-en">Sumac-roasted chicken, caramelised onion, taboon bread</p>
+          <p class="desc-ar" lang="ar" dir="rtl">دجاج مشوي بالسماق وبصل مكرمل وخبز طابون</p>
+          
+        </li></ul>
+    </section>
+    <section class="cat" id="manakish" aria-labelledby="manakish-title">
+      <header class="cat-head">
+        <h2 id="manakish-title" class="cat-en">Manakish</h2>
+        <p class="cat-ar" lang="ar" dir="rtl">المناقيش</p>
+      </header>
+      <ul class="items">
+        <li class="item has-opts">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Zaatar</h3>
+              <p class="name-ar" lang="ar" dir="rtl">زعتر</p>
+            </div>
+            <div class="price"></div>
+          </div>
+          <p class="desc-en">Wild thyme, sesame, olive oil</p>
+          <p class="desc-ar" lang="ar" dir="rtl">زعتر بري وسمسم وزيت زيتون</p>
+          <div class="opts"><span class="opt"><span class="opt-l">Regular <span lang="ar">عادي</span></span><span class="num"><span class="cur">AED</span>22</span></span><span class="opt"><span class="opt-l">Large <span lang="ar">كبير</span></span><span class="num"><span class="cur">AED</span>32</span></span></div>
+        </li>
+        <li class="item has-opts">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Akkawi Cheese</h3>
+              <p class="name-ar" lang="ar" dir="rtl">جبنة عكاوي</p>
+            </div>
+            <div class="price"></div>
+          </div>
+          <p class="desc-en">Akkawi cheese, nigella seed</p>
+          <p class="desc-ar" lang="ar" dir="rtl">جبنة عكاوي وحبة البركة</p>
+          <div class="opts"><span class="opt"><span class="opt-l">Regular <span lang="ar">عادي</span></span><span class="num"><span class="cur">AED</span>28</span></span><span class="opt"><span class="opt-l">Large <span lang="ar">كبير</span></span><span class="num"><span class="cur">AED</span>38</span></span></div>
+        </li>
+        <li class="item has-opts">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Labneh and Mint</h3>
+              <p class="name-ar" lang="ar" dir="rtl">لبنة ونعناع</p>
+            </div>
+            <div class="price"></div>
+          </div>
+          <p class="desc-en">Strained yoghurt, fresh mint, olive oil</p>
+          <p class="desc-ar" lang="ar" dir="rtl">لبنة مصفّاة ونعناع طازج وزيت زيتون</p>
+          <div class="opts"><span class="opt"><span class="opt-l">Regular <span lang="ar">عادي</span></span><span class="num"><span class="cur">AED</span>26</span></span><span class="opt"><span class="opt-l">Large <span lang="ar">كبير</span></span><span class="num"><span class="cur">AED</span>36</span></span></div>
+        </li>
+        <li class="item has-opts">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Lahm bi Ajeen</h3>
+              <p class="name-ar" lang="ar" dir="rtl">لحم بعجين</p>
+            </div>
+            <div class="price"></div>
+          </div>
+          <p class="desc-en">Spiced minced lamb, tomato, pomegranate</p>
+          <p class="desc-ar" lang="ar" dir="rtl">لحم ضأن مفروم متبل وطماطم ودبس رمان</p>
+          <div class="opts"><span class="opt"><span class="opt-l">Regular <span lang="ar">عادي</span></span><span class="num"><span class="cur">AED</span>36</span></span><span class="opt"><span class="opt-l">Large <span lang="ar">كبير</span></span><span class="num"><span class="cur">AED</span>46</span></span></div>
+        </li></ul>
+    </section>
+    <section class="cat" id="desserts" aria-labelledby="desserts-title">
+      <header class="cat-head">
+        <h2 id="desserts-title" class="cat-en">Desserts</h2>
+        <p class="cat-ar" lang="ar" dir="rtl">الحلويات</p>
+      </header>
+      <ul class="items">
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Kunafa with Cheese</h3>
+              <p class="name-ar" lang="ar" dir="rtl">كنافة بالجبن</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>45</span></div>
+          </div>
+          <p class="desc-en">Shredded pastry, akkawi cheese, sugar syrup</p>
+          <p class="desc-ar" lang="ar" dir="rtl">عجينة كنافة وجبنة عكاوي وقطر السكر</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Mahalabia</h3>
+              <p class="name-ar" lang="ar" dir="rtl">مهلبية</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>32</span></div>
+          </div>
+          <p class="desc-en">Milk pudding, orange blossom water, pistachio</p>
+          <p class="desc-ar" lang="ar" dir="rtl">مهلبية بماء الزهر ومفروم الفستق</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Baklava</h3>
+              <p class="name-ar" lang="ar" dir="rtl">بقلاوة</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>38</span></div>
+          </div>
+          <p class="desc-en">Filo, pistachio, honey syrup</p>
+          <p class="desc-ar" lang="ar" dir="rtl">رقائق فيلو وفستق وقطر العسل</p>
+          
+        </li></ul>
+    </section>
+    <section class="cat" id="drinks" aria-labelledby="drinks-title">
+      <header class="cat-head">
+        <h2 id="drinks-title" class="cat-en">Drinks</h2>
+        <p class="cat-ar" lang="ar" dir="rtl">المشروبات</p>
+      </header>
+      <ul class="items">
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Jallab</h3>
+              <p class="name-ar" lang="ar" dir="rtl">جلاب</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>22</span></div>
+          </div>
+          <p class="desc-en">Date syrup, rose water, pine nuts</p>
+          <p class="desc-ar" lang="ar" dir="rtl">دبس تمر وماء ورد وصنوبر</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Mint Lemonade</h3>
+              <p class="name-ar" lang="ar" dir="rtl">ليموناضة بالنعناع</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>20</span></div>
+          </div>
+          <p class="desc-en">Fresh lemon and mint, sparkling or still</p>
+          <p class="desc-ar" lang="ar" dir="rtl">ليمون طازج ونعناع، فوّار أو عادي</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Arabic Coffee</h3>
+              <p class="name-ar" lang="ar" dir="rtl">قهوة عربية</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>18</span></div>
+          </div>
+          <p class="desc-en">Cardamom, saffron</p>
+          <p class="desc-ar" lang="ar" dir="rtl">هيل وزعفران</p>
+          
+        </li></ul>
+    </section>
+    <section class="cat" id="addons" aria-labelledby="addons-title">
+      <header class="cat-head">
+        <h2 id="addons-title" class="cat-en">Add-ons</h2>
+        <p class="cat-ar" lang="ar" dir="rtl">الإضافات</p>
+      </header>
+      <ul class="items">
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Extra Garlic Toum</h3>
+              <p class="name-ar" lang="ar" dir="rtl">ثومية إضافية</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>6</span></div>
+          </div>
+          <p class="desc-en">Whipped garlic and oil</p>
+          <p class="desc-ar" lang="ar" dir="rtl">ثوم مخفوق مع الزيت</p>
+          
+        </li>
+        <li class="item">
+          <div class="item-head">
+            <div class="names">
+              <h3 class="name-en">Extra Taboon Bread</h3>
+              <p class="name-ar" lang="ar" dir="rtl">خبز طابون إضافي</p>
+            </div>
+            <div class="price"><span class="num"><span class="cur">AED</span>6</span></div>
+          </div>
+          <p class="desc-en">Served warm</p>
+          <p class="desc-ar" lang="ar" dir="rtl">يُقدَّم دافئاً</p>
+          
+        </li></ul>
+    </section>
+</main>
+<footer>
+  <img src="../brand/jamra-logo-reversed.svg" width="180" height="118" alt="" aria-hidden="true">
+  <p>All prices in UAE dirhams (AED)</p>
+  <p lang="ar">جميع الأسعار بالدرهم الإماراتي</p>
+</footer>
+</body>
+</html>

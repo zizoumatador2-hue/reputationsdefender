@@ -1,0 +1,104 @@
+{
+  "restaurant": {
+    "name_en": "JAMRA",
+    "name_ar": "جمرة",
+    "descriptor_en": "Charcoal grill and mezze",
+    "descriptor_ar": "مشاوي ومقبلات على الفحم",
+    "currency": "AED",
+    "currency_note_en": "All prices in UAE dirhams (AED)",
+    "currency_note_ar": "جميع الأسعار بالدرهم الإماراتي"
+  },
+  "categories": [
+    {
+      "id": "mezze", "name_en": "Mezze", "name_ar": "المقبلات",
+      "items": [
+        { "id": "hummus", "name_en": "Hummus Ember", "name_ar": "حمص الجمرة",
+          "desc_en": "Chickpea, tahini, lemon, charred-onion oil", "desc_ar": "حمص بالطحينة والليمون وزيت البصل المحروق", "price": 35 },
+        { "id": "moutabal", "name_en": "Moutabal", "name_ar": "متبل",
+          "desc_en": "Smoked aubergine, tahini, pomegranate molasses", "desc_ar": "باذنجان مدخن بالطحينة ودبس الرمان", "price": 38 },
+        { "id": "muhammara", "name_en": "Muhammara", "name_ar": "المحمّرة",
+          "desc_en": "Roasted red pepper, walnut, pomegranate molasses, cumin", "desc_ar": "فلفل أحمر مشوي مع الجوز ودبس الرمان والكمون", "price": 40 },
+        { "id": "warak-enab", "name_en": "Vine Leaves", "name_ar": "ورق عنب",
+          "desc_en": "Rice, parsley, mint, tomato, lemon", "desc_ar": "أرز وبقدونس ونعناع وطماطم وليمون", "price": 42 },
+        { "id": "fattoush", "name_en": "Fattoush", "name_ar": "فتوش",
+          "desc_en": "Seasonal greens, sumac, toasted bread, pomegranate", "desc_ar": "خضار موسمية وسماق وخبز محمّص ورمان", "price": 36 },
+        { "id": "kibbeh-halab", "name_en": "Kibbeh Halab", "name_ar": "كبة حلب",
+          "desc_en": "Baked bulgur shell, spiced lamb, pine nuts", "desc_ar": "قشرة برغل مخبوزة بلحم ضأن متبل وصنوبر", "price": 48 },
+        { "id": "charcoal-halloumi", "name_en": "Charcoal Halloumi", "name_ar": "حلوم على الفحم",
+          "desc_en": "Grilled halloumi, thyme honey, toasted sesame", "desc_ar": "حلوم مشوي بعسل الزعتر والسمسم المحمّص", "price": 52 }
+      ]
+    },
+    {
+      "id": "grill", "name_en": "From the Charcoal", "name_ar": "من الفحم",
+      "items": [
+        { "id": "lamb-chops", "name_en": "Lamb Chops", "name_ar": "ريش غنم",
+          "desc_en": "Four chops, garlic, thyme, sumac", "desc_ar": "أربع قطع ريش بالثوم والزعتر والسماق", "price": 118 },
+        { "id": "shish-taouk", "name_en": "Chicken Shish Taouk", "name_ar": "شيش طاووق",
+          "desc_en": "Marinated chicken breast, garlic toum, grilled tomato", "desc_ar": "صدر دجاج متبل مع الثومية وطماطم مشوية", "price": 72 },
+        { "id": "kafta", "name_en": "Beef and Lamb Kafta", "name_ar": "كفتة لحم",
+          "desc_en": "Minced beef and lamb, parsley, onion, sumac", "desc_ar": "لحم بقري وضأن مفروم مع البقدونس والبصل والسماق", "price": 75 },
+        { "id": "prawns", "name_en": "Grilled Prawns", "name_ar": "روبيان مشوي",
+          "desc_en": "Garlic butter, lemon, chilli flakes", "desc_ar": "زبدة بالثوم والليمون ورقائق الفلفل الحار", "price": 98 },
+        { "id": "mixed-grill", "name_en": "Mixed Grill for Two", "name_ar": "مشاوي مشكّلة لشخصين",
+          "desc_en": "Shish taouk, kafta, lamb chops, grilled vegetables", "desc_ar": "شيش طاووق وكفتة وريش غنم وخضار مشوية", "price": 210 }
+      ]
+    },
+    {
+      "id": "mains", "name_en": "Mains", "name_ar": "الأطباق الرئيسية",
+      "items": [
+        { "id": "lamb-mandi", "name_en": "Lamb Mandi", "name_ar": "مندي لحم",
+          "desc_en": "Slow-cooked lamb shoulder, saffron basmati, dried lime", "desc_ar": "كتف ضأن مطهو ببطء مع أرز بسمتي بالزعفران والليمون المجفف", "price": 135 },
+        { "id": "musakhan", "name_en": "Musakhan", "name_ar": "مسخن",
+          "desc_en": "Sumac-roasted chicken, caramelised onion, taboon bread", "desc_ar": "دجاج مشوي بالسماق وبصل مكرمل وخبز طابون", "price": 88 }
+      ]
+    },
+    {
+      "id": "manakish", "name_en": "Manakish", "name_ar": "المناقيش",
+      "items": [
+        { "id": "zaatar", "name_en": "Zaatar", "name_ar": "زعتر",
+          "desc_en": "Wild thyme, sesame, olive oil", "desc_ar": "زعتر بري وسمسم وزيت زيتون",
+          "options": [ { "label_en": "Regular", "label_ar": "عادي", "price": 22 }, { "label_en": "Large", "label_ar": "كبير", "price": 32 } ] },
+        { "id": "akkawi", "name_en": "Akkawi Cheese", "name_ar": "جبنة عكاوي",
+          "desc_en": "Akkawi cheese, nigella seed", "desc_ar": "جبنة عكاوي وحبة البركة",
+          "options": [ { "label_en": "Regular", "label_ar": "عادي", "price": 28 }, { "label_en": "Large", "label_ar": "كبير", "price": 38 } ] },
+        { "id": "labneh-mint", "name_en": "Labneh and Mint", "name_ar": "لبنة ونعناع",
+          "desc_en": "Strained yoghurt, fresh mint, olive oil", "desc_ar": "لبنة مصفّاة ونعناع طازج وزيت زيتون",
+          "options": [ { "label_en": "Regular", "label_ar": "عادي", "price": 26 }, { "label_en": "Large", "label_ar": "كبير", "price": 36 } ] },
+        { "id": "lahm-bi-ajeen", "name_en": "Lahm bi Ajeen", "name_ar": "لحم بعجين",
+          "desc_en": "Spiced minced lamb, tomato, pomegranate", "desc_ar": "لحم ضأن مفروم متبل وطماطم ودبس رمان",
+          "options": [ { "label_en": "Regular", "label_ar": "عادي", "price": 36 }, { "label_en": "Large", "label_ar": "كبير", "price": 46 } ] }
+      ]
+    },
+    {
+      "id": "desserts", "name_en": "Desserts", "name_ar": "الحلويات",
+      "items": [
+        { "id": "kunafa", "name_en": "Kunafa with Cheese", "name_ar": "كنافة بالجبن",
+          "desc_en": "Shredded pastry, akkawi cheese, sugar syrup", "desc_ar": "عجينة كنافة وجبنة عكاوي وقطر السكر", "price": 45 },
+        { "id": "mahalabia", "name_en": "Mahalabia", "name_ar": "مهلبية",
+          "desc_en": "Milk pudding, orange blossom water, pistachio", "desc_ar": "مهلبية بماء الزهر ومفروم الفستق", "price": 32 },
+        { "id": "baklava", "name_en": "Baklava", "name_ar": "بقلاوة",
+          "desc_en": "Filo, pistachio, honey syrup", "desc_ar": "رقائق فيلو وفستق وقطر العسل", "price": 38 }
+      ]
+    },
+    {
+      "id": "drinks", "name_en": "Drinks", "name_ar": "المشروبات",
+      "items": [
+        { "id": "jallab", "name_en": "Jallab", "name_ar": "جلاب",
+          "desc_en": "Date syrup, rose water, pine nuts", "desc_ar": "دبس تمر وماء ورد وصنوبر", "price": 22 },
+        { "id": "mint-lemonade", "name_en": "Mint Lemonade", "name_ar": "ليموناضة بالنعناع",
+          "desc_en": "Fresh lemon and mint, sparkling or still", "desc_ar": "ليمون طازج ونعناع، فوّار أو عادي", "price": 20 },
+        { "id": "arabic-coffee", "name_en": "Arabic Coffee", "name_ar": "قهوة عربية",
+          "desc_en": "Cardamom, saffron", "desc_ar": "هيل وزعفران", "price": 18 }
+      ]
+    },
+    {
+      "id": "addons", "name_en": "Add-ons", "name_ar": "الإضافات",
+      "items": [
+        { "id": "extra-toum", "name_en": "Extra Garlic Toum", "name_ar": "ثومية إضافية",
+          "desc_en": "Whipped garlic and oil", "desc_ar": "ثوم مخفوق مع الزيت", "price": 6 },
+        { "id": "extra-bread", "name_en": "Extra Taboon Bread", "name_ar": "خبز طابون إضافي",
+          "desc_en": "Served warm", "desc_ar": "يُقدَّم دافئاً", "price": 6 }
+      ]
+    }
+  ]
+}
