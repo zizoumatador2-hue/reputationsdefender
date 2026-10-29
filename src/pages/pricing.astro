@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqSection from '../components/FaqSection.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PricingCards from '../components/PricingCards.astro';
+
+const faqs = [
+  {
+    question: 'Can I buy a plan online today?',
+    answer: 'Not yet. Online checkout is being set up. Choose a plan and we will reply by email to discuss scope and next steps.'
+  },
+  {
+    question: 'Are these prices final?',
+    answer: 'No. They are example prices for planning and may change. We will confirm pricing in writing before any charge.'
+  },
+  {
+    question: 'Do I pay for the free scan?',
+    answer: 'No. The free scan requires no credit card. It is a preliminary assessment based on publicly available information.'
+  },
+  {
+    question: 'What is included in Enterprise?',
+    answer: 'Enterprise is custom. Scope depends on the number of brands, locations, and monitoring needs, and it may include a dedicated account review. Contact us to describe your situation.'
+  }
+];
+---
+<BaseLayout
+  title="Reputation Management Pricing: Plans and Example Prices"
+  description="Example reputation management pricing for personal, business, and professional monitoring, plus a free preliminary scan and custom enterprise options."
+>
+  <PageHero
+    eyebrow="Pricing"
+    title="Simple Plans. Clearly Described."
+    lead="Start with the free preliminary scan. Paid plans add ongoing monitoring, alerts, and reports. Prices below are examples for planning and are not available for online purchase yet."
+    primary={{ label: 'Get Your Free Reputation Scan', href: '/free-reputation-scan/' }}
+    secondary={{ label: 'Talk With Our Team', href: '/contact/?topic=consultation' }}
+  />
+
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Pricing', url: '/pricing/' }]} />
+    <h2>Choose a Plan</h2>
+    <PricingCards />
+
+    <h2 style="margin-top:3rem">Compare Plans</h2>
+    <div class="table-wrap">
+      <table>
+        <caption class="visually-hidden">Feature comparison across pricing plans</caption>
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">Free Scan</th>
+            <th scope="col">Personal</th>
+            <th scope="col">Business</th>
+            <th scope="col">Professional</th>
+            <th scope="col">Enterprise</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Basic reputation scan</th><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Basic score and general recommendations</th><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Reputation monitoring</th><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Reputation alerts</th><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Monthly report</th><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Review monitoring</th><td>No</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Multiple brand keywords</th><td>No</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Competitor monitoring</th><td>No</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Priority support</th><td>No</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th scope="row">Custom scope and reporting</th><td>No</td><td>No</td><td>No</td><td>No</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">Feature availability will be confirmed in each plan's written terms before purchase.</p>
+  </div>
+
+  <FaqSection id="pricing-faq" faqs={faqs} />
+
+  <CtaBand
+    title="Start With a Free Scan"
+    text="No credit card required. Decide on a paid plan after you see your preliminary assessment."
+    label="Get Your Free Reputation Scan"
+    href="/free-reputation-scan/"
+  />
+</BaseLayout>

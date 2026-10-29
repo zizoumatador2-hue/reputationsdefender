@@ -1,37 +1,89 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageHero from '../components/PageHero.astro';
+import TurnstileWidget from '../components/TurnstileWidget.astro';
 import { SITE } from '../lib/site';
 ---
-<BaseLayout title="Contact Us" description={`Get in touch with the ${SITE.name} team with questions, corrections, or feedback.`}>
-  <div class="container section prose">
-    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact/' }]} />
-    <h1>Contact Us</h1>
-    <p>
-      We welcome questions about our content, corrections, and general feedback. {SITE.name} is an independent publisher and does not provide individualized legal advice — for legal questions about your specific situation, please consult a licensed attorney in your state.
-    </p>
-    <p>
-      <strong>Email:</strong> <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
-    </p>
+<BaseLayout
+  title="Contact ReputationsDefender"
+  description={`Request a consultation, ask a question, or send a correction to ${SITE.name}. Replies are sent by email.`}
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Talk With Our Team"
+    lead="Request a consultation, ask about a plan, or send us a correction. Please don't include Social Security, bank, or card numbers in your message."
+  />
 
-    <h2>What We Can Help With</h2>
-    <ul>
-      <li>Corrections to factual errors in our articles</li>
-      <li>Questions about our editorial or affiliate policies</li>
-      <li>General feedback on site content</li>
+  <section class="container section narrow">
+    <div class="card scan-form-card">
+      <form id="contact-form" class="form" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="name-error" />
+            <p id="name-error" class="field-error" data-error-for="name" hidden></p>
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="contact-email-error" />
+            <p id="contact-email-error" class="field-error" data-error-for="email" hidden></p>
+          </div>
+          <div class="field full">
+            <label for="topic">What can we help with?</label>
+            <select id="topic" name="topic" aria-describedby="topic-error">
+              <option value="consultation">Request a consultation</option>
+              <option value="business">Business reputation</option>
+              <option value="personal">Personal reputation</option>
+              <option value="enterprise">Enterprise or multi-location</option>
+              <option value="correction">Correction to a page on this site</option>
+              <option value="general">General question</option>
+            </select>
+            <p id="topic-error" class="field-error" data-error-for="topic" hidden></p>
+          </div>
+          <div class="field full">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" maxlength="2000" required aria-describedby="message-hint message-error"></textarea>
+            <p id="message-hint" class="hint">A few sentences about your name or business and what you are hoping to do.</p>
+            <p id="message-error" class="field-error" data-error-for="message" hidden></p>
+          </div>
+        </div>
+
+        <input type="hidden" name="plan" value="" />
+
+        <div class="field full">
+          <label class="check" for="contact-consent">
+            <input id="contact-consent" name="consent" type="checkbox" value="on" aria-describedby="contact-consent-error" />
+            <span>I agree to be contacted by email about my request. I understand this is not legal advice.</span>
+          </label>
+          <p id="contact-consent-error" class="field-error" data-error-for="consent" hidden></p>
+        </div>
+
+        <div class="hp" aria-hidden="true">
+          <label>Fax number <input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <input type="hidden" name="startedAt" value="" />
+
+        <TurnstileWidget />
+
+        <p class="form-status" data-form-status role="alert" hidden></p>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Send Message</button>
+          <p class="form-privacy">Or email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> directly.</p>
+        </div>
+      </form>
+    </div>
+
+    <h2>Before you write</h2>
+    <ul class="check-list">
+      <li>For a free preliminary look at your name or business, <a href="/free-reputation-scan/">start the free scan</a>.</li>
+      <li>For questions about our articles, email corrections to us; we review each one.</li>
+      <li>For urgent safety concerns, contact local law enforcement or 911. For threats or harassment, keep records and speak with a licensed attorney.</li>
+      <li>We cannot give individualized legal advice.</li>
     </ul>
-
-    <h2>What We Can't Help With</h2>
-    <ul>
-      <li>Individualized legal advice</li>
-      <li>Direct removal of content from third-party websites we don't own or operate</li>
-      <li>Urgent safety matters — if you're in immediate danger, please contact local law enforcement or the 988 Suicide &amp; Crisis Lifeline.</li>
-    </ul>
-
-    <p>We aim to respond to emails within a few business days.</p>
-  </div>
+  </section>
 </BaseLayout>
 
-<style>
-  .section { padding-block: 2rem 4rem; max-width: 760px; margin-inline: auto; }
-</style>
+<script>
+  import '../scripts/contact';
+</script>

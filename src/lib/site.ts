@@ -2,9 +2,9 @@ export const SITE = {
   name: 'ReputationsDefender',
   domain: 'reputationsdefender.com',
   url: 'https://reputationsdefender.com',
-  tagline: 'Plain-English guidance on Google search, online privacy, and reputation management for Americans',
+  tagline: 'Free reputation scans, monitoring, and clear guidance for individuals and businesses in the United States',
   description:
-    'ReputationsDefender helps Americans understand and manage what shows up when people Google their name — covering online privacy, personal information removal, negative search results, and reputation management.',
+    'ReputationsDefender helps individuals and businesses in the United States see what appears when people search their name or brand, understand the risks, and act on a clear plan. Start with a free preliminary scan based on publicly available information.',
   contactEmail: 'info.christopherkunz@gmail.com',
   author: {
     name: 'Christopher Kunz',
@@ -18,30 +18,36 @@ export const SITE = {
 };
 
 export const NAV = [
-  { label: 'Online Reputation', href: '/online-reputation/' },
-  { label: 'Google Search', href: '/google-search/' },
-  { label: 'Personal Privacy', href: '/personal-privacy/' },
-  { label: 'Remove My Info', href: '/personal-information-removal/' },
-  { label: 'Data Brokers', href: '/data-brokers/' },
-  { label: 'Guides', href: '/privacy-guides/' },
-  { label: 'FAQ', href: '/faq/' }
+  { label: 'Free Scan', href: '/free-reputation-scan/' },
+  { label: 'Monitoring', href: '/reputation-monitoring/' },
+  { label: 'Business', href: '/business-reputation/' },
+  { label: 'Personal', href: '/personal-reputation/' },
+  { label: 'Reputation Score', href: '/reputation-score/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'Resources', href: '/resources/' }
 ];
 
 export const FOOTER_LINKS = {
+  services: [
+    { label: 'Reputation Management', href: '/reputation-management/' },
+    { label: 'Free Reputation Scan', href: '/free-reputation-scan/' },
+    { label: 'Reputation Monitoring', href: '/reputation-monitoring/' },
+    { label: 'Business Reputation', href: '/business-reputation/' },
+    { label: 'Personal Reputation', href: '/personal-reputation/' },
+    { label: 'Reputation Score', href: '/reputation-score/' }
+  ],
   company: [
+    { label: 'Pricing', href: '/pricing/' },
+    { label: 'Resources', href: '/resources/' },
     { label: 'About Us', href: '/about/' },
-    { label: 'Contact', href: '/contact/' },
-    { label: 'Editorial Policy', href: '/editorial-policy/' }
+    { label: 'FAQ', href: '/faq/' },
+    { label: 'Contact', href: '/contact/' }
   ],
   legal: [
     { label: 'Privacy Policy', href: '/privacy-policy/' },
     { label: 'Terms of Service', href: '/terms-of-service/' },
+    { label: 'Disclaimer', href: '/disclaimer/' },
+    { label: 'Editorial Policy', href: '/editorial-policy/' },
     { label: 'Affiliate Disclosure', href: '/affiliate-disclosure/' }
-  ],
-  topics: [
-    { label: 'Online Reputation', href: '/online-reputation/' },
-    { label: 'Personal Information Removal', href: '/personal-information-removal/' },
-    { label: 'Business Reputation', href: '/business-reputation/' },
-    { label: 'Online Reviews', href: '/online-reviews/' }
   ]
 };

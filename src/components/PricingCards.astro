@@ -1,0 +1,42 @@
+---
+import { FREE_TIER, PLANS, PRICING_NOTE } from '../lib/pricing';
+interface Props { showNote?: boolean }
+const { showNote = true } = Astro.props;
+---
+<div class="pricing-grid">
+  <article class="card plan">
+    <h3>{FREE_TIER.name}</h3>
+    <p class="plan-price"><span class="amount">{FREE_TIER.price}</span></p>
+    <p class="plan-summary">{FREE_TIER.summary}</p>
+    <ul class="plan-features">
+      {FREE_TIER.features.map((f) => <li>{f}</li>)}
+    </ul>
+    <a class="btn btn-outline plan-cta" href="/free-reputation-scan/" data-track="plan_free_scan">Get Your Free Reputation Scan</a>
+  </article>
+  {PLANS.map((plan) => (
+    <article class:list={['card', 'plan', plan.highlighted && 'plan-highlight']}>
+      <h3>{plan.name}</h3>
+      <p class="plan-price">
+        {plan.monthlyPrice === null ? (
+          <span class="amount">Custom</span>
+        ) : (
+          <>
+            <span class="amount">${plan.monthlyPrice}</span><span class="cadence">/month</span>
+          </>
+        )}
+      </p>
+      <p class="plan-summary">{plan.summary}</p>
+      <ul class="plan-features">
+        {plan.features.map((f) => <li>{f}</li>)}
+      </ul>
+      <a
+        class={plan.highlighted ? 'btn btn-primary plan-cta' : 'btn btn-outline plan-cta'}
+        href={plan.monthlyPrice === null ? `/contact/?topic=enterprise&plan=${plan.id}` : `/contact/?topic=consultation&plan=${plan.id}`}
+        data-track={`plan_${plan.id}`}
+      >
+        {plan.monthlyPrice === null ? 'Discuss Enterprise' : `Request ${plan.name}`}
+      </a>
+    </article>
+  ))}
+</div>
+{showNote && <p class="pricing-note">{PRICING_NOTE}</p>}

@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import FaqSection from '../components/FaqSection.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SampleDashboard from '../components/SampleDashboard.astro';
+import { SCORE_BANDS } from '../lib/score';
+
+const faqs = [
+  {
+    question: 'Is the reputation score an official rating?',
+    answer: 'No. The score is an informational assessment. It is not an official rating, a credit score, a legal determination, or a certification from any organization.'
+  },
+  {
+    question: 'Can a high score guarantee that my results will stay the same?',
+    answer: 'No. Search results and reviews change constantly, and the score reflects the information available at the time of the assessment only.'
+  },
+  {
+    question: 'Why is the current score a sample?',
+    answer: 'Live search and review analysis is not connected in this build. The sample shows how the report is structured. We label sample scores clearly and will explain the data sources once live analysis is connected.'
+  },
+  {
+    question: 'Can I challenge my score?',
+    answer: 'Yes. Contact us with the specific item you believe is inaccurate, including the URL and why you think it is wrong. We will review the item and explain what the score does and does not reflect.'
+  }
+];
+---
+<BaseLayout
+  title="Reputation Score: How the 0 to 100 Assessment Works"
+  description="How the ReputationsDefender 0 to 100 reputation score works, what each band means, and why it is an informational assessment rather than an official rating."
+>
+  <PageHero
+    eyebrow="Reputation score"
+    title="A 0 to 100 Score You Can Understand"
+    lead="The reputation score summarizes what appears about a name or business in a simple band. It is an informational assessment to help you prioritize, not an official rating."
+    primary={{ label: 'Get Your Free Reputation Scan', href: '/free-reputation-scan/' }}
+    secondary={{ label: 'See Sample Dashboard', href: '#sample' }}
+  />
+
+  <div class="container section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Reputation Score', url: '/reputation-score/' }]} />
+
+    <h2>The Score Bands</h2>
+    <p class="section-intro">Each band describes the overall picture at the time of the assessment.</p>
+    <div class="table-wrap">
+      <table>
+        <caption class="visually-hidden">Reputation score bands from Critical to Excellent</caption>
+        <thead>
+          <tr><th scope="col">Score range</th><th scope="col">Band</th><th scope="col">What it generally means</th></tr>
+        </thead>
+        <tbody>
+          {SCORE_BANDS.map((b) => (
+            <tr>
+              <td>{b.min}–{b.max}</td>
+              <td><strong>{b.label}</strong></td>
+              <td>{b.meaning}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What the Score Is Built From</h2>
+    <p>
+      The score is designed to combine several documented components. Each has a clear meaning, and the final weighting will be published before live scoring is offered.
+    </p>
+    <ul>
+      <li><strong>Search visibility:</strong> how prominently your name or business appears in results, and whether accurate, favorable content ranks.</li>
+      <li><strong>Review presence:</strong> how many reviews and ratings are visible, and how recent they are.</li>
+      <li><strong>Profile accuracy:</strong> whether your core profiles are complete and consistent.</li>
+      <li><strong>Sensitive information exposure:</strong> whether personal details, such as addresses or phone numbers, appear on people-search or data broker sites.</li>
+      <li><strong>Recency:</strong> whether results reflect current information or outdated coverage.</li>
+    </ul>
+
+    <h2>What the Score Does Not Measure</h2>
+    <ul>
+      <li>Your character, work quality, or the merits of any review</li>
+      <li>Your creditworthiness or any legal status</li>
+      <li>Whether a specific result will be removed or ranked higher</li>
+      <li>Information that is not publicly available or that our scan cannot access</li>
+    </ul>
+
+    <div class="callout-strong" style="margin-top:1.5rem">
+      <p style="margin:0"><strong>Informational only.</strong> The reputation score is not an official rating and should not be used for employment, lending, housing, or insurance decisions.</p>
+    </div>
+
+    <h2 id="sample">What a Sample Dashboard Looks Like</h2>
+    <SampleDashboard />
+  </div>
+
+  <FaqSection id="score-faq" faqs={faqs} />
+
+  <CtaBand
+    title="See What the Internet Says About Your Brand"
+    text="Run a free preliminary scan. The current build returns a labeled sample report while live analysis is being connected."
+    label="Get Your Free Reputation Scan"
+    href="/free-reputation-scan/"
+  />
+</BaseLayout>
